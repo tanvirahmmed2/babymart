@@ -8,6 +8,7 @@ import { IoHomeOutline } from "react-icons/io5";
 import { PiFinnTheHumanLight } from "react-icons/pi";
 import { FaHistory } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
+import { CiLogout } from "react-icons/ci";
 
 const Sidebar = () => {
   return (
@@ -21,7 +22,7 @@ const Sidebar = () => {
       <div className='w-auto flex flex-col gap-2'>
         <Link href={'/settings'} className='w-auto flex flex-row items-center gap-3 cursor-pointer'><IoSettingsOutline/>Setting</Link>
         <Link href={'/profile'} className='w-auto flex flex-row items-center gap-3 cursor-pointer'><PiFinnTheHumanLight/> Profile</Link>
-        <Logout/>
+        <button className='w-auto flex flex-row items-center gap-3 cursor-pointer'><CiLogout/> Logout</button>
 
       </div>
     </div>
