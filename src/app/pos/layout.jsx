@@ -1,9 +1,14 @@
-import React from 'react'
 
-const PosLayout = ({children}) => {
+
+const PosLayout = ({children, navbar, sidebar, cart}) => {
   return (
-    <div className='w-full bg-black'>
-      {children}
+    <div className='w-full flex flex-col'>
+        {navbar}
+        <div className=" flex flex-row w-full">
+            {sidebar}
+            {children}
+            {cart}
+        </div>
     </div>
   )
 }
