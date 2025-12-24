@@ -59,7 +59,7 @@ const AddProduct = () => {
     const addNewProduct = async (e) => {
         e.preventDefault()
         try {
-            const newData = await FormData()
+            const newData = new FormData()
             newData.append('title', formData.title)
             newData.append('description', formData.description)
             newData.append('price', formData.price)
@@ -68,6 +68,14 @@ const AddProduct = () => {
 
             const response = await axios.post('/api/product', newData, { withCredentials: true })
             alert(response.data.message)
+            setFormData({
+                title: '',
+                description: '',
+                price: '',
+                category: '',
+                image: null,
+
+            })
 
         } catch (error) {
             console.log(error)
@@ -101,7 +109,7 @@ const AddProduct = () => {
             </div>
             <div className='w-full flex flex-col gap-2'>
                 <label htmlFor="image">Image</label>
-                <input type="file" accept='image/*' required name='image' value={FormData.image} id='image' className='w-full p-1 px-3 outline-none border-2 border-black/10 rounded-lg shadow-sm' />
+                <input type="file" accept='image/*' required name='image' onChange={handleChange} id='image' className='w-full p-1 px-3 outline-none border-2 border-black/10 rounded-lg shadow-sm' />
             </div>
             <button type='submit' className='bg-black text-white p-1 px-4 rounded-lg shadow-sm cursor-pointer'>Submit</button>
 

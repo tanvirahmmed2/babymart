@@ -45,6 +45,10 @@ const productSchema = new mongoose.Schema({
         type: Boolean,
         default: true
     },
+    discoutn: {
+        type: Number,
+        trim: true
+    },
     createdAt: {
         type: Date,
         default: Date.now

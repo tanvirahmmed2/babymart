@@ -21,6 +21,12 @@ const AddPeople = () => {
             const response = await axios.post('/api/user', formData, { withCredentials: true })
             console.log(response)
             alert(response.data.message)
+            setFormData({
+                name: '',
+                email: '',
+                password: '',
+                role: ''
+            })
         } catch (error) {
             console.log(error)
             alert(error?.response?.data?.error || 'Failed to add new access')
