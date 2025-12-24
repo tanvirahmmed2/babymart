@@ -33,7 +33,7 @@ const Navbar = () => {
           }
         </button>
       </div>
-      <Sidebar sidebar={isSidebar}/>
+      <Sidebar {...{isSidebar, setIsSidebar}}/>
       
     </div>
   )
