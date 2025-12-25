@@ -124,7 +124,7 @@ export async function DELETE(req) {
             }, { status: 400 })
         }
 
-        await cloudinary.uploader.destroy(product.image_id)
+        await cloudinary.uploader.destroy(product.imageId)
 
         await Product.findByIdAndDelete(id)
 

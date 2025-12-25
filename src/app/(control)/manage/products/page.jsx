@@ -30,7 +30,7 @@ const Products = async () => {
               <Link href={`/products/${product._id}`}>{product.title}</Link>
               <p>{product.price}</p>
               <p>{product.isAvailable ? 'Available' : "Unavailable"}</p>
-              <div className='w-full flex flex-row gap-4'>
+              <div className='w-full flex flex-row gap-4 items-center'>
                 <UpdateProduct id={product._id} />
                 <DeleteProduct id={product._id} />
               </div>
