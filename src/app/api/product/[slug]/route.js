@@ -6,21 +6,21 @@ import { NextResponse } from "next/server";
 export async function GET(req, { params }) {
     try {
         await ConnectDB()
-        const {id} = await params
+        const {slug} = await params
 
-        if (!id) {
+        if (!slug) {
             return NextResponse.json({
                 success: false,
                 message: 'id not found'
             }, { status: 400 })
         }
 
-        const product = await Product.findById(id)
+        const product = await Product.findOne({slug})
 
         if (!product) {
             return NextResponse.json({
                 success: false,
-                message: 'No product found with this id'
+                message: 'No product found with this slug'
             }, { status: 400 })
         }
 

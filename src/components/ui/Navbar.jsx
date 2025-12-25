@@ -17,7 +17,7 @@ const Navbar = () => {
         <div>
 
         </div>
-        <div className='w-auto h-full flex flex-row items-center justify-center gap-2'>
+        <div className='w-auto h-full hidden md:flex flex-row items-center justify-center gap-2'>
           <Link href={'/'}>Home</Link>
           <Link href={'/menu'}>Menu</Link>
           <Link href={'/cart'}>Cart</Link>
