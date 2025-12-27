@@ -2,15 +2,16 @@
 import axios from 'axios';
 import React from 'react'
 import { FaBan } from "react-icons/fa";
+import { toast } from 'react-toastify';
 
 const BanUser = ({id}) => {
     const banuser=async()=>{
         try {
             const response= await axios.post('/api/user/banuser',{id},{ withCredentials: true})
-            alert(response.data.message)
+            toast.success(response.data.message)
         } catch (error) {
             console.log(error)
-            alert(error?.response?.data?.message || "Status can't be changed")
+            toast.error(error?.response?.data?.message || "Status can't be changed")
             
         }
     }

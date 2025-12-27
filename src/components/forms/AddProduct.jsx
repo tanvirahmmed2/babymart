@@ -1,6 +1,7 @@
 'use client'
 import axios from 'axios'
 import React, { useState } from 'react'
+import { toast } from 'react-toastify'
 
 
 const categories = [
@@ -67,7 +68,7 @@ const AddProduct = () => {
             newData.append('image', formData.image)
 
             const response = await axios.post('/api/product', newData, { withCredentials: true })
-            alert(response.data.message)
+            toast.success(response.data.message)
             setFormData({
                 title: '',
                 description: '',
@@ -79,7 +80,7 @@ const AddProduct = () => {
 
         } catch (error) {
             console.log(error)
-            alert(error?.response?.data?.message || 'Failed to add product')
+           toast.error(error?.response?.data?.message || 'Failed to add product')
         }
 
     }

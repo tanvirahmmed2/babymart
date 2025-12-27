@@ -3,9 +3,9 @@ import Navbar from "@/components/ui/Navbar";
 
 export default function MainLayout({ children }) {
   return (
-    <div>
+    <div className="w-full relative">
       <Navbar /> 
-      <main>{children}</main>
+      <main className="w-full mt-14">{children}</main>
       <Footer/>
     </div>
   )

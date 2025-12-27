@@ -1,9 +1,24 @@
 'use client'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
 import React from 'react'
+import { toast } from 'react-toastify'
 
 const Logout = () => {
+  const router= useRouter()
+  const handleLogout = async () => {
+    try {
+      const response = await axios.get('/api/user/logout', { withCredentials: true })
+      toast.success(response.data.message)
+      router.push('/login')
+    } catch (error) {
+      console.log(error)
+      toast.error(error?.response?.data?.error || "Failed to Logout")
+
+    }
+  }
   return (
-    <button className='w-auto flex items-center justify-between gap-3 cursor-pointer'>Logout</button>
+    <button className='w-auto flex items-center justify-between gap-3 cursor-pointer' onClick={handleLogout}>Logout</button>
   )
 }
 

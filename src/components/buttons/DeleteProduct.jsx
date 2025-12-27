@@ -3,16 +3,17 @@ import axios from 'axios';
 import React from 'react'
 
 import { MdDeleteOutline } from "react-icons/md";
+import { toast } from 'react-toastify';
 
 const DeleteProduct = ({id}) => {
     const deleteProduct=async()=>{
       try {
         const res= await axios.delete('/api/product',{data: {id}},{ withCredentials: true})
         console.log(res)
-        alert(res.data.message)
+        toast.success(res.data.message)
       } catch (error) {
         console.log(error)
-        alert(error?.response?.data?.message)
+        toast.error(error?.response?.data?.message)
         
       }
     }

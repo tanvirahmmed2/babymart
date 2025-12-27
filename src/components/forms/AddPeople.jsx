@@ -1,6 +1,7 @@
 'use client'
 import axios from 'axios'
 import React, { useState } from 'react'
+import { toast } from 'react-toastify'
 
 const AddPeople = () => {
     const [formData, setFormData] = useState({
@@ -20,7 +21,7 @@ const AddPeople = () => {
         try {
             const response = await axios.post('/api/user', formData, { withCredentials: true })
             console.log(response)
-            alert(response.data.message)
+            toast.success(response.data.message)
             setFormData({
                 name: '',
                 email: '',
@@ -29,7 +30,7 @@ const AddPeople = () => {
             })
         } catch (error) {
             console.log(error)
-            alert(error?.response?.data?.error || 'Failed to add new access')
+            toast.error(error?.response?.data?.error || 'Failed to add new access')
         }
     }
     return (

@@ -2,6 +2,7 @@
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
+import { toast } from 'react-toastify'
 
 const LoginForm = () => {
   const route= useRouter()
@@ -19,11 +20,11 @@ const LoginForm = () => {
         e.preventDefault()
         try {
             const response= await axios.post('/api/user/login', formData, {withCredentials:true})
-            alert(response.data.message)
+            toast.success(response.data.message)
             route.push('/profile')
         } catch (error) {
             console.log(error)
-            alert(error?.response?.data?.message)
+            toast.error(error?.response?.data?.message)
             
         }
         

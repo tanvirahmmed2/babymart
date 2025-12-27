@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { MdOutlineEventAvailable } from "react-icons/md";
 import { CgUnavailable } from "react-icons/cg";
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const UpdateProductForm = ({ product }) => {
     const [formData, setFormData] = useState({
@@ -23,10 +24,10 @@ const UpdateProductForm = ({ product }) => {
         e.preventDefault()
         try {
             const response= await axios.post('/api/product/update', formData, {withCredentials: true})
-            alert(response.data.message)
+            toast.success(response.data.message)
         } catch (error) {
             console.log(error)
-            alert(error?.response?.data?.error)
+            toast.error(error?.response?.data?.error)
         }
     }
 
