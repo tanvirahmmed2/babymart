@@ -1,69 +1,84 @@
 import ConnectDB from "@/lib/database/mongo";
-import { isLogin } from "@/lib/middleware";
 import Product from "@/lib/models/product";
 import User from "@/lib/models/user";
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import jwt from 'jsonwebtoken'
+import { JWT_SECRET } from "@/lib/database/secret";
 
 export async function POST(req) {
     try {
         await ConnectDB();
 
-        const auth = await isLogin()
-        if (!auth.success) {
+        const token = (await cookies()).get('user_token')?.value
+        if (!token) {
             return NextResponse.json({
-                success: false, message: 'Please log in'
+                success: false,
+                message: 'Please login first'
             }, { status: 400 })
         }
+        const decoded = await jwt.verify(token, JWT_SECRET)
 
-        const { title, productId, quantity } = await req.json();
+        const { title, productId, quantity = 1 } = await req.json();
 
         if (!productId) {
-            return NextResponse.json({ success: false, message: 'Missing data' }, { status: 400 });
+            return NextResponse.json(
+                { success: false, message: 'Missing productId' },
+                { status: 400 }
+            );
         }
 
-        const product = await Product.findById(productId)
-
+        const product = await Product.findById(productId);
         if (!product) {
-            return NextResponse.json({
-                success: false,
-                message: 'Product not found'
-            }, { status: 400 })
+            return NextResponse.json(
+                { success: false, message: 'Product not found' },
+                { status: 404 }
+            );
         }
-
 
         if (!product.isAvailable) {
-            return NextResponse.json({
-                success: false,
-                message: 'Product is not availavle right now'
-            }, { status: 400 })
+            return NextResponse.json(
+                { success: false, message: 'Product is not available right now' },
+                { status: 400 }
+            );
         }
 
-        const user = auth.payload
+        const user = await User.findById(decoded.id);
 
-        const singleProductPrice = product.price - product.discount
+        const singleProductPrice = product.price - product.discount;
 
-        const existingItem = user.cart.find(item => item.productId === productId);
+        const existingItem = user.cart.find(
+            item => item.productId.toString() === productId
+        );
 
         if (existingItem) {
-            existingItem.quantity += (quantity || 1);
-            existingItem.price += singleProductPrice * quantity || 1
+            existingItem.quantity += quantity;
+            existingItem.price += singleProductPrice * quantity;
         } else {
-            user.cart.push({ title, productId, quantity, price: singleProductPrice });
+            user.cart.push({
+                title,
+                productId,
+                quantity,
+                price: singleProductPrice * quantity
+            });
         }
 
         await user.save();
 
-        return NextResponse.json({
-            success: true,
-            message: 'Added to cart',
-            cart: user.cart
-        }, { status: 200 });
+        return NextResponse.json(
+            {
+                success: true,
+                message: 'Added to cart',
+                cart: user.cart
+            },
+            { status: 200 }
+        );
 
     } catch (error) {
-        return NextResponse.json({
-            success: false,
-            message: error.message
-        }, { status: 500 });
+        return NextResponse.json(
+            { success: false, message: error.message },
+            { status: 500 }
+        );
     }
 }
 

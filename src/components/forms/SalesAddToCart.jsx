@@ -1,11 +1,13 @@
 'use client'
 import axios from 'axios'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
 const SalesAddToCart = ({ product }) => {
-    const data={title: product.title, productId: product._id, quantity: 1}
+    
+
+    const data={ title: product.title, productId: product._id, quantity: 1}
 
     const addItemToCart = async () => {
         try {
