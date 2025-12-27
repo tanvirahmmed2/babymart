@@ -1,8 +1,10 @@
 'use client'
 import axios from 'axios'
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
 const LoginForm = () => {
+  const route= useRouter()
     const [formData, setFormData]= useState({
         email:"",
         password:''
@@ -18,6 +20,7 @@ const LoginForm = () => {
         try {
             const response= await axios.post('/api/user/login', formData, {withCredentials:true})
             alert(response.data.message)
+            route.push('/profile')
         } catch (error) {
             console.log(error)
             alert(error?.response?.data?.message)

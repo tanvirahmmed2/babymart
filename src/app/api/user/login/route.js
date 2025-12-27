@@ -2,7 +2,8 @@ import ConnectDB from "@/lib/database/mongo";
 import User from "@/lib/models/user";
 import { NextResponse } from "next/server";
 import bcrypt from 'bcryptjs'
-import { JWT_SECRET } from "@/lib/database/secret";
+import jwt from 'jsonwebtoken'
+import { JWT_SECRET, NODE_ENV } from "@/lib/database/secret";
 
 
 export async function POST(req) {
@@ -35,7 +36,7 @@ export async function POST(req) {
         }
 
 
-        const isMatchPassword = await bcrypt.compare(user.password, password)
+        const isMatchPassword = await bcrypt.compare( password, user.password)
 
         if (!isMatchPassword) {
             return NextResponse.json({
