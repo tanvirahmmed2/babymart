@@ -1,10 +1,12 @@
 'use client'
 import axios from 'axios'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
 const SalesAddToCart = ({ product }) => {
+    const router= useRouter()
     
 
     const data={ title: product.title, productId: product._id, quantity: 1}
@@ -12,6 +14,7 @@ const SalesAddToCart = ({ product }) => {
     const addItemToCart = async () => {
         try {
             const response= await axios.post('/api/user/cart', data, {withCredentials:true})
+            router.refresh()
             toast.success(response.data.message)
         } catch (error) {
             console.log(error)

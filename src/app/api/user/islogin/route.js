@@ -8,12 +8,11 @@ import { NextResponse } from "next/server"
 export async function GET() {
     try {
         await ConnectDB()
-        const cookieStore = await cookies()
-        const token = cookieStore.get('user_token')?.value
+        const token = (await cookies()).get('user_token')?.value
         if (!token) {
             return NextResponse.json({ success: false, message: 'Please login' }, { status: 400 })
         }
-        const decoded = await jwt.verify(token, JWT_SECRET)
+        const decoded =  jwt.verify(token, JWT_SECRET)
         if (!decoded) {
             return NextResponse.json({ success: false, message: 'Failed jwt verification' }, { status: 400 })
         }

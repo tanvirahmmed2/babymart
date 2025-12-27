@@ -1,19 +1,33 @@
 'use client'
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import RemoveFromCart from '../buttons/RemoveFromCart'
 
-const Orderform = () => {
+const Orderform = ({ cartItems }) => {
+
+
+    useEffect(() => {
+        const fetchUser = async () => {
+
+
+        }
+        fetchUser()
+    }, [])
+
     const [data, setData] = useState({
         name: '',
         phone: '',
         delivery: 'dinein',
         table: '',
-        items: '',
+        items: cartItems || null,
         subTotal: '',
         discount: '',
         tax: '',
         totlePrice: '',
         payment: ''
     })
+
+
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -24,7 +38,7 @@ const Orderform = () => {
         setData((prev) => ({ ...prev, delivery: method }))
     }
 
-    const handleSubmit=async(e)=>{
+    const handleSubmit = async (e) => {
         e.preventDefault()
         console.log(data)
     }
@@ -45,7 +59,7 @@ const Orderform = () => {
                     <label htmlFor="phone">Phone</label>
                     <input type="number" id='phone' name='phone' value={data.phone} onChange={handleChange} min={1} className='px-3 border-2 border-black/10 rounded-lg outline-none' />
                 </div>
-                
+
                 {
                     data.delivery === 'dinein' &&
                     <div className='w-full flex flex-row items-center justify-between'>
@@ -54,6 +68,19 @@ const Orderform = () => {
                     </div>
                 }
             </div>
+
+            {
+                data.items && data.items.map((item) => (
+                    <div key={item._id} className='w-full grid-cols-2 grid border border-black/10 p-1 rounded-lg gap-2'>
+                        <p className='text-sm'>{item.title}</p>
+                        <div className='w-full flex flex-row items-center justify-between'>
+                            <p>{item.quantity}</p>
+                            <p>{item.price}</p>
+                            <RemoveFromCart />
+                        </div>
+                    </div>
+                ))
+            }
 
 
 
