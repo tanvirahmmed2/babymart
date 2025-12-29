@@ -1,9 +1,22 @@
+import { BASE_URL } from '@/lib/database/secret'
 import React from 'react'
 
-const Orders = () => {
+const Orders = async() => {
+  const res= await fetch(`${BASE_URL}/api/order/confirmed`, {method:'GET', cache:'no-store'})
+  const data= await res.json()
+  if(!data.success) return <p className='w-full text-center p-4'>No running order found</p>
+  const orders= data.payload
+
   return (
-    <div>
-      Orders
+    <div className='w-full flex p-4 flex-col items-center justify-center gap-4'>
+      <h1>Orders</h1>
+      {
+        orders.map((order)=>(
+          <div key={order._id}>
+            <h1>{order._id}</h1>
+          </div>
+        ))
+      }
     </div>
   )
 }
