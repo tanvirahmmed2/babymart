@@ -10,7 +10,7 @@ const orderSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    
+
     items: [
         {
             productId: {
@@ -20,10 +20,10 @@ const orderSchema = new mongoose.Schema({
             },
             title: String,
             quantity: { type: Number, required: true },
-            price: { type: Number, required: true } 
+            price: { type: Number, required: true }
         }
     ],
-    
+
     delivery: {
         type: String,
         enum: ['dinein', 'takeout'],
@@ -31,7 +31,7 @@ const orderSchema = new mongoose.Schema({
     },
     table: {
         type: String,
-        trim:true
+        trim: true
     },
 
     subTotal: { type: Number, required: true },
@@ -47,16 +47,16 @@ const orderSchema = new mongoose.Schema({
 
     status: {
         type: String,
-        enum: [ 'preparing', 'completed', 'cancelled'],
-        default: 'preparing'
+        enum: ['confirmed', 'delivered', 'cancelled'],
+        default: 'confirmed'
     },
-    
+
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users',
         required: true
     }
-}, { timestamps: true });
+});
 
 const Order = mongoose.models.orders || mongoose.model('orders', orderSchema);
 
