@@ -19,10 +19,80 @@ export async function GET() {
             message: 'Successfully fetched orders',
             payload: orders
         }, { status: 200 })
+
+
     } catch (error) {
         return NextResponse.json({
             success: false,
             message: 'Failed to fetch orders',
+            error: error.message
+        }, { status: 500 })
+
+    }
+
+}
+
+export async function POST(req) {
+    try {
+        await ConnectDB()
+
+        const { name, phone, delivery, items, tabel, subTotal, tax, discount, totalPrice, paymentMethod } = await req.json()
+        if (!delivery || !subTotal || !tax || !discount || !totalPrice || !paymentMethod) {
+            return NextResponse.json({
+                success: false,
+                message: 'Please all information',
+            }, { status: 400 })
+        }
+
+        const newOrder = new Order({ name, phone, delivery, items, tabel, subTotal, tax, discount, totalPrice, paymentMethod })
+
+        await newOrder.save()
+
+        return NextResponse.json({
+            success: true,
+            message: 'Successfully placed order',
+        }, { status: 200 })
+
+    } catch (error) {
+        return NextResponse.json({
+            success: false,
+            message: 'Failed to create order',
+            error: error.message
+        }, { status: 500 })
+
+    }
+
+}
+
+export async function DELETE(req) {
+    try {
+        await ConnectDB()
+        const { id } = await req.json()
+
+        if (!id) {
+            return NextResponse.json({
+                success: false,
+                message: 'Id not found'
+            }, { status: 400 })
+        }
+
+        const order = await Order.findById(id)
+
+        if (!order) {
+            return NextResponse.json({
+                success: false,
+                message: 'Order not found',
+            }, { status: 400 })
+        }
+
+        await Order.findByIdAndDelete(id)
+
+        return NextResponse.json({ success: true, message: 'Successfully deleted order' }, { status: 200 })
+
+    } catch (error) {
+        return NextResponse.json({
+            success: false,
+            message: 'Failed to delete order',
             error: error.message
         }, { status: 500 })
 
