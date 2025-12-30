@@ -46,3 +46,26 @@ export async function DELETE(req) {
     }
 
 }
+
+export async function POST(req) {
+    try {
+        await ConnectDB()
+        const {name, email, subject, message}= await req.json()
+        if(!name || !email || !subject || !message){
+            return NextResponse.json({
+                 success: false, message:"Please fill all information"
+            },{status:400})
+        }
+
+        const newSupport= new Support({name, email, subject, message})
+
+        await newSupport.save()
+
+        return NextResponse.json({
+            success: true, message:' Successfully placed support message. Wait for response'
+        },{status:200})
+    } catch (error) {
+        return NextResponse.json({success:false, message:'Failed to create support message', error:error.message}, {status:500})
+    }
+    
+}

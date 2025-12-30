@@ -6,6 +6,7 @@ const supportSchema= new mongoose.Schema({
     email:{ type:String, required:true, trim: true},
     subject:{ type:String, required:true, trim: true},
     message:{ type:String, required:true, trim: true},
+    status:{type:String, enum:['unread', 'replied'], default:'unread'},
     createdAt:{type: Date, default: Date.now}
 })
 
