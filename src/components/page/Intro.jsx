@@ -1,0 +1,15 @@
+import Link from 'next/link'
+import React from 'react'
+
+const Intro = () => {
+  return (
+    <div className='w-full h-200 p-4 flex flex-col items-center justify-center gap-2'>
+        <h1 className='text-8xl font-serif text-center'>La Bella Cucina</h1>
+        <p className='text-4xl'>Experience Authentic Italian Cuisine</p>
+        <Link href={'/menu'}>Menu</Link>
+      
+    </div>
+  )
+}
+
+export default Intro

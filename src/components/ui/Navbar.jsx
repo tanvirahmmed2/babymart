@@ -34,7 +34,7 @@ const Navbar = () => {
 
   return (
     <div className='w-full fixed top-0 z-50'>
-      <div className='w-full flex flex-row items-center justify-between h-14 px-4 border-b-2 border-black/10 bg-indigo-400 text-white'>
+      <div className='w-full flex flex-row items-center justify-between h-14 px-4 border-b-2 border-black/10 bg-slate-100'>
         <Link href={'/'} className='text-2xl font-semibold'>Restaurant</Link>
         <div>
 
