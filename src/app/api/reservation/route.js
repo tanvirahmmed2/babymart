@@ -51,14 +51,14 @@ export async function DELETE(req) {
 export async function POST(req) {
     try {
         await ConnectDB()
-        const {name, email, date, seats, table, message}= await req.json()
-        if(!name || !email || !date || !seats){
+        const {name, email, date, table, member, message}= await req.json()
+        if(!name || !email || !date || !member || !table){
             return NextResponse.json({
                  success: false, message:"Please fill all information"
             },{status:400})
         }
 
-        const newReservation= new Reservation({name, email, date, seats, table, message})
+        const newReservation= new Reservation({name, email, date, member, table, message})
 
         await newReservation.save()
 
