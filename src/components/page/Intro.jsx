@@ -26,10 +26,9 @@ const Intro = async () => {
           alt={product.title}
           fill
           priority
-          className='object-cover opacity-60 transition-opacity min-h-200 duration-700 blur-[5px]'
+          className='object-cover opacity-60 transition-opacity min-h-200 duration-700 blur-xl'
         />
       </div>
-      <span className='w-full min-h-200 absolute -z-10 bg-black/30'></span>
 
       <div className='z-10 text-center px-6'>
         <h2 className='text-sky-400 uppercase tracking-[0.3em] text-sm mb-4 font-sans font-bold'>
