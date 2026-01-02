@@ -32,14 +32,14 @@ const Reservation = async () => {
           <div key={info._id} className='w-full flex flex-row justify-between p-2 border rounded-lg'>
             <div className='flex-1 flex flex-col gap-3'>
               <h1 className='text-xl font-semibold'>{info.name}</h1>
-              <p>Email: {info.email}</p>
+              <p className='italic'>Email: {info.email}</p>
               <p>Member: {info.member}</p>
             </div>
 
             <div className='flex-3 flex flex-col gap-3'>
               <p>Date: {info.date.slice(0,10)}</p>
               <p>Table: {info.table}</p>
-              <p>Message: {info.message}</p>
+              <p className='font-semibold'>{info.message}</p>
             </div>
 
             <div className='flex-1 flex flex-col gap-3 items-center justify-center h-full'>
