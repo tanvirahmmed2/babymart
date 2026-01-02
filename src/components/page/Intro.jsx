@@ -4,21 +4,55 @@ import Link from 'next/link'
 import React from 'react'
 
 const Intro = async () => {
-  const res = await fetch(`${BASE_URL}/api/product/latest`, { method: 'GET', cache: 'no-store' })
-  const data = await res.json()
-  if (!data.success) return console.log('no data found')
-  const product = data.payload[0]
-  return (
-    <div className='w-full h-200 p-4 flex flex-col items-center justify-center gap-2 text-center relative text-white'>
-      <Image src={product.image} alt={product.title} width={2000} height={1000} className='w-full h-200 absolute -z-20 object-cover blur-[2px]' />
-      <h1 className='text-8xl font-serif text-center text-sky-500'>Grand Kitchen</h1>
-      <p className='text-4xl'>Experience Authentic Meals</p>
-      <div className='w-full flex flex-row items-center justify-center gap-6'>
-        <Link href={'/menu'} className='p-2 px-6 bg-sky-600 hover:scale-105 transform ease-in-out duration-500 cursor-pointer text-white text-xl'>Menu</Link>
-        <Link href={'/reservation'} className='p-2 px-6 bg-sky-600 hover:scale-105 transform ease-in-out duration-500 cursor-pointer text-white text-xl'>Book</Link>
-      </div>
 
-    </div>
+  const res = await fetch(`${BASE_URL}/api/product/`, {
+    method: 'GET',
+    cache: 'no-store'
+  })
+
+  const data = await res.json()
+
+  if (!data.success || !data.payload || data.payload.length === 0) return null
+
+  const randomIndex = Math.floor(Math.random() * data.payload.length)
+  const product = data.payload[randomIndex]
+
+  return (
+    <section className='relative w-full h-200 flex flex-col items-center justify-center overflow-hidden '>
+
+      <div className="absolute inset-0 -z-20">
+        <Image
+          src={product.image}
+          alt={product.title}
+          fill
+          priority
+          className='object-cover opacity-60 transition-opacity min-h-200 duration-700 blur-[5px]'
+        />
+      </div>
+      <span className='w-full min-h-200 absolute -z-10 bg-black/30'></span>
+
+      <div className='z-10 text-center px-6'>
+        <h2 className='text-sky-400 uppercase tracking-[0.3em] text-sm mb-4 font-sans font-bold'>
+          Welcome to
+        </h2>
+        <h1 className='text-6xl md:text-8xl font-serif text-white mb-6 drop-shadow-2xl'>
+          Grand Kitchen
+        </h1>
+        <p className='text-white/80 text-lg md:text-2xl font-light max-w-2xl mx-auto mb-10 leading-relaxed'>
+          Featuring today: <span className="text-sky-300 font-medium">{product.title}</span>.
+          Experience authentic flavors crafted with passion.
+        </p>
+
+        <div className='flex flex-col sm:flex-row gap-4 justify-center items-center'>
+          <Link href='/menu' className='w-48 py-4 bg-sky-600 hover:bg-sky-500 text-white transition-all duration-300 rounded-full font-semibold tracking-wide shadow-lg'>
+            VIEW MENU
+          </Link>
+          <Link href='/reservation' className='w-48 py-4 border border-white/30 hover:bg-white hover:text-black text-white transition-all duration-300 rounded-full font-semibold tracking-wide backdrop-blur-sm'>
+            BOOK A TABLE
+          </Link>
+        </div>
+      </div>
+    </section>
   )
 }
 
