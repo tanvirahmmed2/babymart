@@ -1,21 +1,32 @@
-import { BASE_URL } from '@/lib/database/secret'
+'use client'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useCart } from '../context/Context'
+import axios from 'axios'
 
-const Intro = async () => {
+const Intro = () => {
+  const { siteData } = useCart()
+  const [products, setProducts] = useState()
 
-  const res = await fetch(`${BASE_URL}/api/product/`, {
-    method: 'GET',
-    cache: 'no-store'
-  })
+  useEffect(() => {
+    const fetchProducts = async() => {
+      try {
+        const response = await axios.get('/api/product', { withCredentials: true })
+        setProducts(response.data.payload)
+      } catch (error) {
+        console.log(error)
+        setProducts(null)
+      }
+    }
+    fetchProducts()
+  }, [])
 
-  const data = await res.json()
 
-  if (!data.success || !data.payload || data.payload.length === 0) return null
+  if (!products || products.length === 0) return null
 
-  const randomIndex = Math.floor(Math.random() * data.payload.length)
-  const product = data.payload[randomIndex]
+  const randomIndex = Math.floor(Math.random() * products.length)
+  const product = products[randomIndex]
 
   return (
     <section className='relative w-full h-200 flex flex-col items-center justify-center overflow-hidden '>
@@ -35,7 +46,7 @@ const Intro = async () => {
           Welcome to
         </h2>
         <h1 className='text-6xl md:text-8xl font-serif text-white mb-6 drop-shadow-2xl'>
-          Grand Kitchen
+          {siteData.title || 'Grand Kitchen'}
         </h1>
         <p className='text-white/80 text-lg md:text-2xl font-light max-w-2xl mx-auto mb-10 leading-relaxed'>
           Featuring today: <span className="text-sky-300 font-medium">{product.title}</span>.
