@@ -24,7 +24,7 @@ const Orders = async() => {
                 {
                   order.items.map((item)=>(
                     <div key={item._id}>
-                      <p>{item.title}</p>
+                      <p>{item?.title}</p>
                       <div>
                         <p>{item.quantity}</p>
                         <p>{item.price}</p>

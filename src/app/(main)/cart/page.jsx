@@ -123,7 +123,7 @@ const Cart = () => {
                 {cartItems.length > 0 && cartItems.map(item => (
                     <div key={item.productId} className='w-full flex items-center justify-between bg-gray-50 p-3 rounded-xl border border-gray-100'>
                         <div className="flex flex-col">
-                            <p className='font-medium text-gray-700'>{item.title}</p>
+                            <p className='font-medium text-gray-700'>{item?.title}</p>
                             <p className='text-[10px] text-gray-400 uppercase'>Qty: {item.quantity}</p>
                         </div>
                         <div className='flex items-center gap-4'>

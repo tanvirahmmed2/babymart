@@ -25,8 +25,8 @@ const SingleOrderHistory = async ({ params }) => {
                 <div className='w-full flex flex-col items-center justify-center gap-2 border p-4 rounded-lg'>
                     {
                         order.items.map(item => (
-                            <div key={item.title} className='w-full flex flex-row items-center justify-center'>
-                                <p className='flex-4'>{item.title}</p>
+                            <div key={item?.title} className='w-full flex flex-row items-center justify-center'>
+                                <p className='flex-4'>{item?.title}</p>
                                 <p className='flex-1'>{item.quantity}</p>
                                 <p className='flex-1'>{item.price}</p>
                             </div>
