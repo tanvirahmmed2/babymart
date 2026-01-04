@@ -46,7 +46,7 @@ const Intro = () => {
           Welcome to
         </h2>
         <h1 className='text-6xl md:text-8xl font-serif text-white mb-6 drop-shadow-2xl'>
-          {siteData?.title || 'Grand Kitchen'}
+          {siteData?.title || 'Business'}
         </h1>
         <p className='text-white/80 text-lg md:text-2xl font-light max-w-2xl mx-auto mb-10 leading-relaxed'>
           Featuring today: <span className="text-sky-300 font-medium">{product?.title}</span>.

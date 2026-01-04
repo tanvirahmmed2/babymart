@@ -6,45 +6,54 @@ const websiteSchema = new mongoose.Schema({
         type: String,
         trim: true,
         default: 'WebSite',
-        required:true
+        required: true
     },
     address: {
         type: String,
         trim: true,
-        required:true
+        required: true
     },
     tagline: {
         type: String,
         trim: true,
-        required:true
+        required: true
     },
     socialLink: {
         type: String,
         trim: true,
-        required:true
+        required: true
     },
+    hotline: {
+        type: String,
+        trim: true,
+        required: true
+    },
+    categories: [
+        { type: String, trim: true }
+    ]
+    ,
     tax: {
         type: Number,
         trim: true,
-        required:true
+        required: true
     },
     openFrom: {
         type: String,
         trim: true,
-        required:true
+        required: true
     },
     openTo: {
         type: String,
         trim: true,
-        required:true
+        required: true
     },
     bio: {
         type: String,
         trim: true,
-        required:true
+        required: true
     },
 })
 
-const WebSite= mongoose.models.websites || mongoose.model('websites', websiteSchema)
+const WebSite = mongoose.models.websites || mongoose.model('websites', websiteSchema)
 
 export default WebSite
