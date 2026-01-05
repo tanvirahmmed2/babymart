@@ -10,10 +10,12 @@ import axios from 'axios'
 import { useCart } from '../context/Context'
 
 const Navbar = () => {
-  const {siteData}= useCart()
+  const { siteData } = useCart()
   const [isSidebar, setIsSidebar] = useState(false)
   const [isLogin, setIsLogin] = useState(false)
   const [role, setRole] = useState('')
+  const [searchData, setSearchData] = useState([])
+  const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -33,30 +35,59 @@ const Navbar = () => {
     fetchUser()
   }, [])
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response =await axios.get(`/api/product/search?q=${searchTerm}`, { withCredentials: true })
+        console.log(response)
+        setSearchData(response.data.payload)
+      } catch (error) {
+        console.log(error)
+        setSearchData([])
+      }
+    }
+    fetchData()
+  }, [searchTerm])
+
   return (
     <div className='w-full fixed top-0 z-50'>
       <div className='w-full flex flex-row items-center justify-between md:justify-around h-14 px-4 bg-red-400 text-white'>
-        <Link href={'/'} className='text-2xl font-semibold '>{siteData?.title|| 'Business'}</Link>
-       
-        <div className='w-auto h-full hidden md:flex flex-row items-center justify-center gap-2'>
-          <Link href={'/'}>Home</Link>
-          <Link href={'/products'}>Products</Link>
-          {role === 'manager' && <Link href={'/manage'}>Manage</Link>}
-          {role === 'sales' && <Link href={'/sales'}>Sales</Link>}
-          {
-            isLogin ? <div className='w-auto h-full flex flex-row items-center justify-center gap-2'>
-              <Link href={'/cart'}>Cart</Link>
-              <Logout />
-              <Link href={'/profile'}>Profile</Link>
-            </div> : <Link href={'/login'}>Login</Link>
-          }
+        <Link href={'/'} className='text-base md:text-2xl font-semibold flex '>{siteData?.title || 'Business'}</Link>
+
+        <div className='w-auto flex flex-row items-center justify-center gap-2'>
+          <div className='w-auto relative flex items-center justify-center'>
+            <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className='bg-white w-50 text-black outline-none p-1 px-3 rounded-sm' />
+
+            {
+              searchData.length>0 &&<div className='w-full top-14 absolute flex flex-col gap-1 '>
+              {
+              searchData.map((item)=>(
+                <Link href={`/products/${item?.slug}`} className='px-2 border bg-white text-black' key={item._id} onClick={()=> setSearchTerm('')}>{item.title.slice(0,25)}</Link>
+              ))
+              }
+            </div>
+            }
+          </div>
+          <div className='w-auto h-full hidden md:flex flex-row items-center justify-center gap-2'>
+            <Link href={'/'}>Home</Link>
+            <Link href={'/products'}>Products</Link>
+            {role === 'manager' && <Link href={'/manage'}>Manage</Link>}
+            {role === 'sales' && <Link href={'/sales'}>Sales</Link>}
+            {
+              isLogin ? <div className='w-auto h-full flex flex-row items-center justify-center gap-2'>
+                <Link href={'/cart'}>Cart</Link>
+                <Logout />
+                <Link href={'/profile'}>Profile</Link>
+              </div> : <Link href={'/login'}>Login</Link>
+            }
+          </div>
+          <button onClick={() => setIsSidebar(!isSidebar)} className='text-xl block md:hidden'>
+            {
+              isSidebar ? <RxCross2 /> :
+                <FaBars />
+            }
+          </button>
         </div>
-        <button onClick={() => setIsSidebar(!isSidebar)} className='text-xl block md:hidden'>
-          {
-            isSidebar ? <RxCross2 /> :
-              <FaBars />
-          }
-        </button>
       </div>
       <Sidebar {...{ isSidebar, setIsSidebar, isLogin, role }} />
 
