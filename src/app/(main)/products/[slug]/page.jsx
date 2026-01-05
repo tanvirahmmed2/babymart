@@ -1,5 +1,6 @@
 import UserAddtoCart from '@/components/forms/UserAddtoCart'
 import Latest from '@/components/page/Latest'
+import SameCategory from '@/components/page/SameCatgory'
 import { BASE_URL } from '@/lib/database/secret'
 import Image from 'next/image'
 import React from 'react'
@@ -58,7 +59,7 @@ const SingleProduct = async ({ params }) => {
           </div>
         </div>
       </div>
-      <Latest />
+      <SameCategory category={product.category}/>
     </div>
   )
 }

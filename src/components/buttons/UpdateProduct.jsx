@@ -7,7 +7,10 @@ import { FaEdit } from "react-icons/fa";
 const UpdateProduct = ({slug}) => {
     
   return (
-    <Link href={`/manage/products/${slug}`}><FaEdit/></Link>
+    <div className='relative group'>
+      <p className='-top-6 absolute opacity-40 hidden group-hover:block text-red-500'>Edit</p>
+      <Link href={`/manage/products/${slug}`}><FaEdit/></Link>
+    </div>
   )
 }
 

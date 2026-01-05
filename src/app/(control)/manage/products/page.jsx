@@ -1,4 +1,5 @@
 import DeleteProduct from '@/components/buttons/DeleteProduct'
+import MakeFeatured from '@/components/buttons/MakeFeatured'
 import UpdateProduct from '@/components/buttons/UpdateProduct'
 import AddProduct from '@/components/forms/AddProduct'
 import { BASE_URL } from '@/lib/database/secret'
@@ -17,19 +18,20 @@ const Products = async () => {
       
       <div className='w-full flex flex-col items-center justify-center gap-4'>
         <h1 className='text-xl font-semibold text-center'>Project List</h1>
-        <div className='w-full grid grid-cols-4'>
-          <p>Title</p>
-          <p>Price</p>
-          <p>Stock</p>
-          <p>Action</p>
+        <div className='w-full flex flex-row items-center justify-between border my-4'>
+          <p className='flex-4'>Title</p>
+          <p className='flex-1'>Price</p>
+          <p className='flex-1'>Stock</p>
+          <p className='flex-1'>Action</p>
         </div>
         {
           products && products.map((product) => (
-            <div key={product._id} className='w-full grid grid-cols-4'>
-              <Link href={`/products/${product?.slug}`}>{product?.title}</Link>
-              <p>{product.price}</p>
-              <p>{product.isAvailable ? 'Available' : "Unavailable"}</p>
-              <div className='w-full flex flex-row gap-4 items-center'>
+            <div key={product._id} className='w-full flex flex-row items-center justify-between'>
+              <Link className='flex-4' href={`/products/${product?.slug}`}>{product?.title}</Link>
+              <p className='flex-1'>{product.price}</p>
+              <p className='flex-1'>{product.isAvailable ? 'Available' : "Unavailable"}</p>
+              <div className=' flex-1 flex flex-row gap-4 items-center'>
+                <MakeFeatured id={product._id} status={product.isFeatured}/>
                 <UpdateProduct slug={product.slug} />
                 <DeleteProduct id={product._id} />
               </div>

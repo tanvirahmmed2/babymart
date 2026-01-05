@@ -1,7 +1,7 @@
 
 import React from 'react'
-import Profile from '../buttons/Profile'
 import Notification from '../buttons/Notification'
+import Link from 'next/link'
 
 const ManageNavbar = () => {
   return (
@@ -9,7 +9,7 @@ const ManageNavbar = () => {
         <h1 className='text-xl font-bold'>Management</h1>
         <div className='flex flex-row items-center justify-center gap-4 h-14'>
             <h1>Tanvir Ahmmed</h1>
-            <Profile/>
+            <Link href={'/profile'} >Profile</Link>
             <Notification/>
         </div>
     </div>

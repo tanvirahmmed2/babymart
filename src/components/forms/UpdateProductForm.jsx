@@ -10,9 +10,11 @@ const UpdateProductForm = ({ product }) => {
         title: product.title,
         description: product.description,
         price: product.price,
-        discount: product.discount || '',
+        discount: product.discount,
         slug: product.slug,
-        id: product._id
+        id: product._id,
+        quantity:product.quantity,
+        wholeSalePrice: product.wholeSalePrice
     })
 
     const handleChange = (e) => {
@@ -34,11 +36,11 @@ const UpdateProductForm = ({ product }) => {
     const changeStatus=async () => {
         try {
             const response= await axios.post('/api/product/status', {id:formData.id}, {withCredentials:true})
-            alert(response.data.message)
+            toast(response.data.message)
             
         } catch (error) {
             console.log(error)
-            alert(error?.response?.data?.message)
+            toast(error?.response?.data?.message)
             
         }
         
@@ -57,8 +59,16 @@ const UpdateProductForm = ({ product }) => {
                     <textarea name="description" id="description" value={formData.description} required onChange={handleChange} className='w-full p-1 px-3 rounded-lg border-2 border-black/10 outline-none' />
                 </div>
                 <div className='w-full flex flex-col'>
+                    <label htmlFor="wholeSalePrice">Whole Sale Price</label>
+                    <input type="number" min={0} required name='wholeSalePrice' id='wholeSalePrice' value={formData.wholeSalePrice} onChange={handleChange} className='w-full p-1 px-3 rounded-lg border-2 border-black/10 outline-none' />
+                </div>
+                <div className='w-full flex flex-col'>
                     <label htmlFor="price">Price</label>
                     <input type="number" min={0} required name='price' id='price' value={formData.price} onChange={handleChange} className='w-full p-1 px-3 rounded-lg border-2 border-black/10 outline-none' />
+                </div>
+                <div className='w-full flex flex-col'>
+                    <label htmlFor="quantity">Quantity</label>
+                    <input type="number" min={0} required name='quantity' id='quantity' value={formData.quantity} onChange={handleChange} className='w-full p-1 px-3 rounded-lg border-2 border-black/10 outline-none' />
                 </div>
                 <div className='w-full flex flex-col'>
                     <label htmlFor="discount">Discount</label>

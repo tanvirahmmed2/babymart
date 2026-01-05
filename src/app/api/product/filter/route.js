@@ -11,7 +11,7 @@ export async function GET(req) {
 
         const filter = {};
         if (category) filter.category = category;
-        if (availability === "isAvailable") filter.quantity = { $gt: 0 };
+        if (availability === "isAvailable") filter.isAvailable = true;
 
         const products = await Product.find(filter).sort({ _id: -1 });
 

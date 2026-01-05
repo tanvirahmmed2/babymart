@@ -1,7 +1,6 @@
 'use client'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-import Profile from '../buttons/Profile'
 import Sidebar from './Sidebar'
 
 import { FaBars } from "react-icons/fa";
@@ -48,7 +47,7 @@ const Navbar = () => {
             isLogin ? <div className='w-auto h-full flex flex-row items-center justify-center gap-2'>
               <Link href={'/cart'}>Cart</Link>
               <Logout />
-              <Profile />
+              <Link href={'/profile'}>Profile</Link>
             </div> : <Link href={'/login'}>Login</Link>
           }
         </div>

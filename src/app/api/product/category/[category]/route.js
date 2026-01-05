@@ -6,28 +6,28 @@ import { NextResponse } from "next/server";
 export async function GET(req, { params }) {
     try {
         await ConnectDB()
-        const { slug } = await params
+        const { category } = await params
 
-        if (!slug) {
+        if (!category) {
             return NextResponse.json({
                 success: false,
                 message: 'id not found'
             }, { status: 400 })
         }
 
-        const product = await Product.findOne({ slug })
+        const products = await Product.find({ category }).sort({createAt:-1})
 
-        if (!product) {
+        if (!products) {
             return NextResponse.json({
                 success: false,
-                message: 'No product found with this slug'
+                message: 'No product found with this category'
             }, { status: 400 })
         }
 
         return NextResponse.json({
             success: true,
             message: 'Product data found successfully',
-            payload: product
+            payload: products
         }, { status: 200 })
 
     } catch (error) {
@@ -39,5 +39,4 @@ export async function GET(req, { params }) {
     }
 
 }
-
 
