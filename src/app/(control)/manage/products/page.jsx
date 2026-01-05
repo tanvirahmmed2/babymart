@@ -27,7 +27,7 @@ const Products = async () => {
         {
           products && products.map((product) => (
             <div key={product._id} className='w-full grid grid-cols-4'>
-              <Link href={`/menu/${product.slug}`}>{product?.title}</Link>
+              <Link href={`/products/${product?.slug}`}>{product?.title}</Link>
               <p>{product.price}</p>
               <p>{product.isAvailable ? 'Available' : "Unavailable"}</p>
               <div className='w-full flex flex-row gap-4 items-center'>

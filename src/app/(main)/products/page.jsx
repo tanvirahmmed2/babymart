@@ -62,7 +62,7 @@ const Menu = () => {
           {filteredData.length > 0 ? (
             filteredData.map((item) => (
 
-              <Link key={item._id} href={`/menu/${item.slug}`} className="w-full">
+              <Link key={item._id} href={`/products/${item.slug}`} className="w-full">
                 <Item item={item}/>
               </Link>
             ))
