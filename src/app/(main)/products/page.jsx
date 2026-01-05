@@ -18,58 +18,41 @@ const categories = [
 ]
 
 const Menu = () => {
-  const [allProducts, setAllProducts] = useState([])
+  const [products, setProducts] = useState([])
   const [category, setCategory] = useState(null)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get('/api/product', { withCredentials: true })
-        setAllProducts(response.data.payload)
+        setProducts(response.data.payload)
       } catch (error) {
         console.error("Fetch error:", error)
+        setProducts([])
       }
     }
     fetchData()
   }, [])
 
-  const filteredData = useMemo(() => {
-    if (!category) return allProducts;
-    return allProducts.filter((item) => item.category === category);
-  }, [category, allProducts]);
-
+console.log(products)
 
   return (
     <div className="w-full p-4 min-h-screen">
       <div className="w-full flex flex-col items-center justify-center gap-4">
-        <h1 className="text-xl font-semibold w-full text-center">Category</h1>
+        <div>
 
-        <div className="w-full grid grid-cols-3 md:grid-cols-7 justify-items-center gap-2">
-          {categories.map((cat) => (
-            <p
-              key={cat.id}
-              onClick={() => setCategory(cat.value)}
-              className={`p-4 w-full text-center cursor-pointer shadow-sm rounded-lg transition-colors
-                ${category === cat.value ? 'bg-indigo-300 text-white' : 'bg-white text-gray-700'}
-              `}
-            >
-              {cat.category}
-            </p>
-          ))}
         </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-4 mt-8 w-full">
-          {filteredData.length > 0 ? (
-            filteredData.map((item) => (
-
-              <Link key={item._id} href={`/products/${item.slug}`} className="w-full">
-                <Item item={item}/>
-              </Link>
-            ))
-          ) : (
-            <p className="col-span-full text-center text-gray-400">No items found in this category.</p>
-          )}
-        </div>
+        {
+            products.length<1 ? <p>No product found</p>: <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {
+                products.map(product=>(
+                  <Link href={`/products/${product?.slug}`} key={product._id}>
+                    <Item item={product}/>
+                  </Link>
+                ))
+              }
+            </div>
+          }
       </div>
     </div>
   )

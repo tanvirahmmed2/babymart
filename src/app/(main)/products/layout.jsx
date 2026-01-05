@@ -1,8 +1,8 @@
 import React from 'react'
 
 export const metadata={
-    title:'Menu | Restaurant',
-    description:'MenuBar site'
+    title:'Products | Restaurant',
+    description:'Products site'
 }
 
 
