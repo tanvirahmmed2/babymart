@@ -8,7 +8,7 @@ const UpdateProduct = ({slug}) => {
     
   return (
     <div className='relative group'>
-      <p className='-top-6 absolute opacity-40 hidden group-hover:block text-red-500'>Edit</p>
+      <p className='-top-8 absolute hidden group-hover:block text-red-500 bg-white shadow p-1 rounded-lg'>Edit</p>
       <Link href={`/manage/products/${slug}`}><FaEdit/></Link>
     </div>
   )

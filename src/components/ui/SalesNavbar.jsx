@@ -1,7 +1,5 @@
 
 import React from 'react'
-import Profile from '../buttons/Profile'
-import Notification from '../buttons/Notification'
 import Link from 'next/link'
 
 const SalesNavbar = () => {

@@ -4,11 +4,16 @@ import React from 'react'
 const Orders = async() => {
   const res= await fetch(`${BASE_URL}/api/order/confirmed`, {method:'GET', cache:'no-store'})
   const data= await res.json()
-  if(!data.success) return <p className='w-full text-center p-4'>No running order found</p>
+  if (!data.success || data.payload.length === 0) return (
+    <div className='w-full h-64 flex flex-col items-center justify-center text-slate-400'>
+      <p className="text-xl font-medium">No Order found</p>
+      <p className="text-sm">New orders will appear here.</p>
+    </div>
+  )
   const orders= data.payload
 
   return (
-    <div className='w-full flex p-4 flex-col items-center justify-center gap-4'>
+    <div className='w-full flex p-4 flex-col items-center  gap-4'>
       <h1 className='text-2xl' >Orders</h1>
       {
         orders.map((order)=>(

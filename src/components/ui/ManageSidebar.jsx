@@ -18,11 +18,11 @@ import Logout from '../buttons/Logout';
 
 const ManageSidebar = () => {
   return (
-    <div className='w-auto min-h-[calc(100vh-64px)] p-4 flex flex-col justify-between border-r-2 border-black/10'>
-      <div className='w-auto flex flex-col gap-2'>
+    <div className='w-40 text-sm min-h-[calc(100vh-64px)] p-4 flex flex-col justify-between border-r-2 border-black/10'>
+      <div className='w-full flex flex-col gap-2'>
         <Link href={'/manage'} className='w-auto flex flex-row items-center gap-3 cursor-pointer'><IoHomeOutline/> Home</Link>
         <Link href={'/manage/orders'} className='w-auto flex flex-row items-center gap-3 cursor-pointer'><AiOutlineUnorderedList/> Orders</Link>
-        <Link href={'/manage/offers'} className='w-auto flex flex-row items-center gap-3 cursor-pointer'><MdOutlineLocalOffer/> Offers</Link>
+        <Link href={'/manage/featured'} className='w-auto flex flex-row items-center gap-3 cursor-pointer'><MdOutlineLocalOffer/> Featured</Link>
         <Link href={'/manage/history'} className='w-auto flex flex-row items-center gap-3 cursor-pointer'><FaHistory/> History</Link>
         <Link href={'/manage/newproduct'} className='w-auto flex flex-row items-center gap-3 cursor-pointer'><FaRegEdit/>New Product</Link>
         <Link href={'/manage/products'} className='w-auto flex flex-row items-center gap-3 cursor-pointer'><CiBoxList/> Products</Link>
