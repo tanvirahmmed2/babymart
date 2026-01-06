@@ -48,7 +48,7 @@ const SalesAddToCart = ({ product }) => {
     return (
         <div className={`w-full flex flex-row items-center ${!product.isAvailable ? 'bg-red-400' : 'bg-transparent'} px-3 p-1 border-b-2 border-black/10`}>
             <p className='flex-4'>{product?.title}</p>
-            <p className='flex-1'>{product?.price - product?.discount}</p>
+            <p className='flex-1'>৳{product?.price - product?.discount}</p>
             {
                 product?.isAvailable ? <form onSubmit={addItemToCart} className='flex-1 flex flex-row items-center gap-4'>
                     <input
@@ -56,6 +56,7 @@ const SalesAddToCart = ({ product }) => {
                         id='quantity'
                         name='quantity'
                         min={1}
+                        max={`${product?.quantity}`}
                         onChange={handleChange}
                         value={formData.quantity}
                         className='w-20 border rounded-lg px-2'

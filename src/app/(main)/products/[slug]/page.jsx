@@ -49,7 +49,7 @@ const SingleProduct = async ({ params }) => {
             </p>
             <div className='w-full flex flex-row items-center justify-between font-semibold'>
               <p>Category: {product.category}</p>
-              {product.isAvailable && <p>Quantity: {product.quantity}</p>}
+              {product.isAvailable && <p>Stock: {product.quantity}</p>}
 
             </div>
 
