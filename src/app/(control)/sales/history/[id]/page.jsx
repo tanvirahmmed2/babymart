@@ -11,7 +11,7 @@ const SingleOrderHistory = async ({ params }) => {
     const order = data.payload
     return (
         <div className="w-full p-4 bg-gray-50">
-            <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-6 items-start">
+            <div className="w-full mx-auto flex flex-col lg:flex-row gap-6 items-start">
 
                 <div className="flex-3 flex flex-col gap-6 w-full">
 
