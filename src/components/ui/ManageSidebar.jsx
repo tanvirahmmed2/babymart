@@ -18,7 +18,7 @@ import Logout from '../buttons/Logout';
 
 const ManageSidebar = () => {
   return (
-    <div className='w-40 text-sm min-h-[calc(100vh-64px)] p-4 flex flex-col justify-between border-r-2 border-black/10'>
+    <div className='w-40 text-sm min-h-[calc(100vh-64px)] p-4 flex flex-col justify-between border-r-2 bg-rose-50 border-black/10'>
       <div className='w-full flex flex-col gap-2'>
         <Link href={'/manage'} className='w-auto flex flex-row items-center gap-3 cursor-pointer'><IoHomeOutline/> Home</Link>
         <Link href={'/manage/orders'} className='w-auto flex flex-row items-center gap-3 cursor-pointer'><AiOutlineUnorderedList/> Orders</Link>

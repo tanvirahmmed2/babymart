@@ -5,39 +5,32 @@ import SalesAddToCart from "@/components/forms/SalesAddToCart"
 import axios from "axios"
 import { useEffect, useState, useMemo } from "react"
 
-const categories = [
-  { id: 1, category: 'All', value: null }, 
-  { id: 2, category: 'Meals', value: 'meals' },
-  { id: 3, category: 'Combo', value: 'combo' },
-  { id: 4, category: 'Snacks', value: 'snacks' },
-  { id: 5, category: 'Salad', value: 'salad' },
-  { id: 6, category: 'Drinks', value: 'drinks' },
-  { id: 7, category: 'Dessert', value: 'dessert' }
-]
+
 
 const PosPage = () => {
-  const [allProducts, setAllProducts] = useState([]) 
-  const [category, setCategory] = useState(null)
+
+
+  const [searchData, setSearchData] = useState([])
+  const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!searchTerm) {
+        setSearchData([])
+        return
+      }
       try {
-        const response = await axios.get('/api/product', { withCredentials: true })
-        setAllProducts(response.data.payload)
+        const response = await axios.get(`/api/product/search?q=${searchTerm}`, { withCredentials: true })
+        setSearchData(response.data.payload)
       } catch (error) {
-        console.error("Fetch error:", error)
+        console.log(error)
+        setSearchData([])
       }
     }
     fetchData()
-  }, [])
+  }, [searchTerm])
 
-  const filteredData = useMemo(() => {
-    if (!category) return allProducts;
-    return allProducts.filter((item) => item.category === category);
-  }, [category, allProducts]);
-
-    
-  const {fetchCart} = useCart()
+  const { fetchCart } = useCart()
 
   useEffect(() => {
     fetchCart()
@@ -48,31 +41,21 @@ const PosPage = () => {
   return (
     <div className="w-full p-4">
       <div className="w-full flex flex-col items-center justify-center gap-4">
-        <h1 className="text-xl font-semibold w-full text-center">Category</h1>
-        
-        <div className="w-full grid grid-cols-3 md:grid-cols-7 justify-items-center gap-2">
-          {categories.map((cat) => (
-            <p 
-              key={cat.id} 
-              onClick={() => setCategory(cat.value)} 
-              className={`p-4 w-full text-center cursor-pointer shadow-sm rounded-lg transition-colors
-                ${category === cat.value ? 'bg-indigo-300 text-white' : 'bg-white text-gray-700'}
-              `}
-            > 
-              {cat.category}
-            </p>
-          ))}
+
+        <div className="w-full flex flex-row items-center justify-between gap-4 border-b-2 p-4">
+          <p>Find item</p>
+          <input type="text" className="w-auto border px-3 p-1 rounded-lg outline-none" value={searchTerm} onChange={(e)=>{setSearchTerm(e.target.value)}} placeholder="search"/>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-8 w-full">
-          {filteredData.length > 0 ? (
-            filteredData.map((item) => (
-              <SalesAddToCart key={item._id} product={item} fetchCart={fetchCart}/>
-            ))
-          ) : (
-            <p className="col-span-full text-center text-gray-400">No items found in this category.</p>
-          )}
-        </div>
+        {
+          !searchData || searchData.length < 1 ? <p>Please search product</p> : <div className="w-full flex flex-col gap-2 items-center justify-center">
+            {
+              searchData?.map((item) => (
+                <SalesAddToCart key={item._id} product={item} fetchCart={fetchCart} />
+              ))
+            }
+          </div>
+        }
       </div>
     </div>
   )
