@@ -10,8 +10,8 @@ const Cart = () => {
     const [data, setData] = useState({
         name: userData?.name,
         phone: userData?.number || userData?.email,
-        delivery: 'dinein',
-        table: 1,
+        address:userData?.address,
+        delivery: 'homedelivery',
         discount: 0,
         tax: 0,
         totlePrice: 0,
@@ -79,13 +79,13 @@ const Cart = () => {
             <div className='w-full flex flex-col gap-4'>
                 <div className="flex bg-gray-100 p-1 rounded-xl">
                     <p 
-                        onClick={() => handleMethodChange('dinein')} 
-                        className={`flex-1 text-center py-2 rounded-lg cursor-pointer transition-all font-medium ${data.delivery === 'dinein' ? 'bg-white shadow-sm text-black' : 'text-gray-500'}`}
-                    > Dine In </p>
+                        onClick={() => handleMethodChange('pickup')} 
+                        className={`flex-1 text-center py-2 rounded-lg cursor-pointer transition-all font-medium ${data.delivery === 'pickup' ? 'bg-white shadow-sm text-black' : 'text-gray-500'}`}
+                    > Pickup </p>
                     <p 
-                        onClick={() => handleMethodChange('takeout')} 
-                        className={`flex-1 text-center py-2 rounded-lg cursor-pointer transition-all font-medium ${data.delivery === 'takeout' ? 'bg-white shadow-sm text-black' : 'text-gray-500'}`}
-                    > Take Out </p>
+                        onClick={() => handleMethodChange('homedelivery')} 
+                        className={`flex-1 text-center py-2 rounded-lg cursor-pointer transition-all font-medium ${data.delivery === 'homedelivery' ? 'bg-white shadow-sm text-black' : 'text-gray-500'}`}
+                    > Homde Delivery </p>
                 </div>
 
                 <div className="grid gap-3">
@@ -100,10 +100,10 @@ const Cart = () => {
                     </div>
 
                     <div className="grid grid-cols-2 gap-3">
-                        {data.delivery === 'dinein' &&
+                        {data.delivery === 'homedelivery' &&
                             <div className='flex flex-col gap-1'>
-                                <label htmlFor="table" className="text-xs font-semibold text-gray-500 ml-1">TABLE</label>
-                                <input type="number" id='table' name='table' value={data.table} min={1} onChange={handleChange} className='w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black outline-none transition-all' />
+                                <label htmlFor="address" className="text-xs font-semibold text-gray-500 ml-1">Address</label>
+                                <input type="text" id='address' name='address' value={data.address} min={1} onChange={handleChange} className='w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-black outline-none transition-all' />
                             </div>
                         }
                         <div className='flex flex-col gap-1'>
@@ -156,7 +156,7 @@ const Cart = () => {
                 </div>
             </div>
 
-            <button className='w-full bg-black text-white py-4 rounded-xl font-bold hover:bg-zinc-800 transition-colors active:scale-[0.98]' type='submit'>
+            <button className='w-full bg-black text-white  rounded-xl font-bold hover:bg-zinc-800 transition-colors active:scale-[0.98] cursor-pointer' type='submit'>
                 Place Order
             </button>
         </form>
