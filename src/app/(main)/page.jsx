@@ -9,8 +9,8 @@ const Main = () => {
   return (
     <div className='w-full overflow-hidden min-h-screen flex flex-col items-center justify-center'>
       <Intro/>
-      <Featured/>
       <Offer/>
+      <Featured/>
       <Latest/>
       <About/>
     </div>
