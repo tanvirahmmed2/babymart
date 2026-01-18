@@ -3,12 +3,13 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 import { useCart } from '../context/Context'
+import { MdOutlineSystemUpdateAlt } from "react-icons/md";
 
 
 
 
 const AddProduct = () => {
-    const { siteData } = useCart()
+    const {  categories, fetchCategory } = useCart()
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -21,6 +22,20 @@ const AddProduct = () => {
 
 
     })
+
+    const [category, setCategory]= useState('')
+    const addNewCategory = async () => {
+    try {
+      const response= await axios.post('/api/category', {title:category}, {withCredentials:true})
+      toast.success(response.data.message)
+      setCategory('')
+      fetchCategory()
+    } catch (error) {
+      console.log(error)
+      toast.error(error?.response?.data?.message || 'Failed to perform action')
+    }
+  }
+
 
     const handleChange = (e) => {
         const { name, value, files } = e.target
@@ -75,15 +90,30 @@ const AddProduct = () => {
                 <label htmlFor="description">Description</label>
                 <input type="text" name='description' id='description' required value={formData.description} onChange={handleChange} className='w-full p-1 px-3 outline-none border-2 border-black/10 rounded-lg shadow-sm' />
             </div>
-            <div className='w-full flex flex-col gap-2'>
-                <label htmlFor="category">Category</label>
-                <select name="category" id="category" required value={formData.category} onChange={handleChange} className='w-full p-1 px-3 outline-none border-2 border-black/10 rounded-lg shadow-sm'>
-                    <option value="">--Select--</option>
-                    {siteData && siteData.categories.map((cat) => (
-                        <option value={cat} key={cat}>{cat}</option>
-                    ))}
-                </select>
+
+
+            <div className='w-full flex flex-col md:flex-row items-center justify-between gap-2'>
+                <div className='w-full flex flex-col gap-2'>
+                    <label htmlFor="category">Category</label>
+                    <select name="category" id="category" required value={formData.category} onChange={handleChange} className='w-full p-1 px-3 outline-none border-2 border-black/10 rounded-lg shadow-sm'>
+                        <option value="">--Select--</option>
+                        {categories && categories.map((cat) => (
+                            <option value={cat.title} key={cat._id}>{cat.title}</option>
+                        ))}
+                    </select>
+                </div>
+
+
+                <div className='w-full flex flex-col gap-2'>
+                    <label htmlFor="category">New Category</label>
+                    <div className='w-full flex flex-row items-center justify-between gap-4'>
+                        <input type="text" required value={category} id='category' name='category' onChange={(e) => { setCategory(e.target.value) }} className='w-full p-1 px-3 outline-none border-2 border-black/10 rounded-lg shadow-sm'  />
+                        <button onClick={addNewCategory} className='px-4 p-1 bg-sky-400 text-center rounded-lg hover:scale-[1.02] transform ease-in-out duration-500 cursor-pointer text-white'><MdOutlineSystemUpdateAlt /></button>
+                    </div>
+                </div>
             </div>
+
+
             <div className='w-full flex flex-col gap-2'>
                 <label htmlFor="unit">Unit</label>
                 <input type="text" name='unit' id='unit' required value={formData.unit} onChange={handleChange} className='w-full p-1 px-3 outline-none border-2 border-black/10 rounded-lg shadow-sm' />

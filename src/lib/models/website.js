@@ -27,10 +27,7 @@ const websiteSchema = new mongoose.Schema({
         type: String,
         trim: true,
         required: true
-    },
-    categories: [
-        { type: String, trim: true }
-    ]
+    }
     ,
     tax: {
         type: Number,

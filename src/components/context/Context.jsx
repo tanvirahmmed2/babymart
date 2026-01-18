@@ -9,6 +9,7 @@ export const ContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([])
   const [siteData, setSiteData] = useState(null)
   const [userData, setUserData] = useState(null)
+  const [categories, setCategories]= useState([])
 
   const fetchCart = async () => {
     try {
@@ -57,13 +58,28 @@ export const ContextProvider = ({ children }) => {
 
   }, [])
   
+  const fetchCategory= async () => {
+    try {
+      const response= await axios.get('/api/category', {withCredentials:true})
+      setCategories(response.data.payload)
+    } catch (error) {
+      console.log(error)
+      setCategories([])
+      
+    }
+    
+  }
     
 
 
-  useEffect(() => { fetchCart() }, [])
+  useEffect(() => {
+     fetchCart()
+
+     fetchCategory()
+   }, [])
 
   return (
-    <Context.Provider value={{ cartItems, fetchCart, siteData , userData}}>
+    <Context.Provider value={{ cartItems, fetchCart, siteData , userData, categories, fetchCategory}}>
       {children}
     </Context.Provider>
   )

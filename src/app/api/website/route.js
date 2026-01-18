@@ -44,7 +44,7 @@ export async function POST(req) {
             }, { status: 400 })
         }
 
-        const {title, bio, tax, tagline, openFrom, openTo, address, socialLink, hotline, categories } = await req.json()
+        const {title, bio, tax, tagline, openFrom, openTo, address, socialLink, hotline, } = await req.json()
         if (!title|| !bio || !tax || !openFrom || !openTo || !tagline || !address || !socialLink || !hotline ) {
             return NextResponse.json({
                 success: false,
@@ -52,9 +52,8 @@ export async function POST(req) {
             }, { status: 400 })
         }
 
-        const cateArry=  categories.split(',').map(category => category.trim()).filter(category => category.length > 0);
 
-        const newWebsite = new WebSite({ title, bio, tax, tagline, openFrom, openTo, address, socialLink, hotline , categories: cateArry})
+        const newWebsite = new WebSite({ title, bio, tax, tagline, openFrom, openTo, address, socialLink, hotline })
 
         await newWebsite.save()
         return NextResponse.json({

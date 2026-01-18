@@ -5,7 +5,7 @@ import { ContextProvider } from "@/components/context/Context";
 
 export const metadata = {
   title: {
-    default: "Nizam Store",
+    default: "Nizam Varieties Store",
     template: "%s | Nizam Store",
   },
   description: "Nizam Store app",

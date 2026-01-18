@@ -14,9 +14,9 @@ const WebsiteDetails = () => {
         openTo: '',
         bio:'',
         hotline:'',
-        categories:''
 
     })
+
 
     const handleChange=(e)=>{
         const {name, value}= e.target
@@ -73,10 +73,6 @@ const WebsiteDetails = () => {
             <div className='w-full flex flex-col gap-2'>
                 <label htmlFor="hotline">Hotline</label>
                 <input name="hotline" id="hotline" value={formData.hotline} required onChange={handleChange} className='w-full p-1 pz-2 border outline-none' type='text'/>
-            </div>
-            <div className='w-full flex flex-col gap-2'>
-                <label htmlFor="categories">categories</label>
-                <input name="categories" id="categories" value={formData.categories} required onChange={handleChange} className='w-full p-1 pz-2 border outline-none' type='text'/>
             </div>
             <button type='submit' className='w-full p-1 bg-black text-white text-center cursor-pointer hover:opacity-90'>Submit</button>
         </form>

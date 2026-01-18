@@ -12,7 +12,7 @@ import { useEffect, useState, useMemo } from "react"
 
 
 const Menu = () => {
-  const { siteData } = useCart()
+  const { siteData, categories } = useCart()
   const [products, setProducts] = useState([])
   const [filterData, setFilterData] = useState({
     category: '',
@@ -65,11 +65,11 @@ const Menu = () => {
         <div className="w-full flex flex-col sm:flex-row items-start gap-4 p-2 sm:items-center justify-around shadow">
           <h1 className="w-full sm:w-auto outline-none text-center">Filter</h1>
           {
-            siteData && <select name="category" id="category" onChange={filterChange} value={filterData.category} className="w-full sm:w-auto outline-none px-4 cursor-pointer">
+            categories && <select name="category" id="category" onChange={filterChange} value={filterData.category} className="w-full sm:w-auto outline-none px-4 cursor-pointer">
               <option value="" className="cursor-pointer ">All Product</option>
               {
-                siteData.categories.map(cat => (
-                  <option value={cat} key={cat} className="cursor-pointer ">{cat}</option>
+                categories.map(cat => (
+                  <option value={cat.title} key={cat._id} className="cursor-pointer ">{cat.title}</option>
                 ))
               }
 
