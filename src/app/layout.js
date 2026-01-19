@@ -5,10 +5,10 @@ import { ContextProvider } from "@/components/context/Context";
 
 export const metadata = {
   title: {
-    default: "Nizam Varieties Store",
-    template: "%s | Nizam Store",
+    default: "Baby Mart",
+    template: "%s | Baby Mart",
   },
-  description: "Nizam Store app",
+  description: "Baby Mart app",
 };
 export default function RootLayout({ children }) {
   return (
