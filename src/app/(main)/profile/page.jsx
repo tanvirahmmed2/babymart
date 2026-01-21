@@ -1,10 +1,11 @@
 
-import { isLogin } from '@/lib/middleware'
+import { isLogin, isManager } from '@/lib/middleware'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import React from 'react'
 
 const Profile = async () => {
+  const manage= await isManager()
   const auth = await isLogin()
   if (!auth.success) return redirect('/login')
   const data = auth.payload
@@ -40,7 +41,9 @@ const Profile = async () => {
           </Link>
 
          </div>
-
+        {
+          manage.success && <Link href={'/manage'} className='border p-2 rounded-lg'>Manage Your Site</Link>
+        }
         </div>
       </div>
 

@@ -1,3 +1,4 @@
+import cloudinary from "@/lib/database/cloudinary";
 import ConnectDB from "@/lib/database/mongo";
 import Category from "@/lib/models/category";
 import { NextResponse } from "next/server";
@@ -8,10 +9,21 @@ export async function POST(req) {
     try {
         await ConnectDB()
 
-        const { title } = await req.json()
+        const formData = await req.formData()
+
+        const title = formData.get('title')
+        const imageFile = formData.get('imageFile')
+
+
         if (!title) {
             return NextResponse.json({
                 success: false, message: 'Please add category title'
+            }, { status: 400 })
+        }
+        if (!imageFile) {
+            return NextResponse.json({
+                success: false,
+                message: 'Please ad an image'
             }, { status: 400 })
         }
         const category = await Category.findOne({ title })
@@ -20,8 +32,25 @@ export async function POST(req) {
                 success: false, message: 'Category aleady exists'
             }, { status: 400 })
         }
+        const imageBuffer = Buffer.from(await imageFile.arrayBuffer());
 
-        const newCat = new Category({ title })
+        const cloudImage = await new Promise((resolve, reject) => {
+            const stream = cloudinary.uploader.upload_stream(
+                { folder: "monihari" },
+                (err, result) => {
+                    if (err) reject(err);
+                    else resolve(result);
+                }
+            );
+            stream.end(imageBuffer);
+        });
+
+        if (!cloudImage) {
+            return NextResponse.json({
+                success: false, message: 'Failed to upload category image'
+            }, { status: 400 })
+        }
+        const newCat = new Category({ title, image: cloudImage.secure_url, imageId: cloudImage.public_id })
 
         await newCat.save()
         return NextResponse.json({
@@ -41,7 +70,7 @@ export async function GET() {
     try {
         await ConnectDB()
         const categories = await Category.find().sort({ createdAt: -1 })
-        if (!categories || categories.length<1) {
+        if (!categories || categories.length < 1) {
             return NextResponse.json({
                 success: false, message: 'No category data found'
             }, { status: 400 })

@@ -10,7 +10,7 @@ const ContextProvider = ({ children }) => {
 
     const [categories, setCategories] = useState([])
 
-    const fethcCategory = async () => {
+    const fetchCategory = async () => {
         try {
             const response= await axios.get('/api/category', {withCredentials:true})
             setCategories(response.data.payload)
@@ -25,11 +25,11 @@ const ContextProvider = ({ children }) => {
 
 
     useEffect(()=>{
-        fethcCategory()
+        fetchCategory()
     },[])
 
     const contextValue = {
-        categories,
+        categories, fetchCategory
     }
     return <Context.Provider value={contextValue}>
         {children}
