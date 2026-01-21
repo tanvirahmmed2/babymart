@@ -14,9 +14,9 @@ const Navbar = () => {
 
         <div className='w-full flex flex-row items-center justify-around text-3xl sm:hidden'>
           <Link href={'/'}><IoHomeOutline /></Link>
-          <Link href={'/'}><BiSolidOffer /></Link>
-          <Link href={'/'}><AiOutlineProduct /></Link>
-          <Link href={'/'}><IoLogInSharp /></Link>
+          <Link href={'/offers'}><BiSolidOffer /></Link>
+          <Link href={'/products'}><AiOutlineProduct /></Link>
+          <Link href={'/login'}><IoLogInSharp /></Link>
         </div>
 
         <div className='w-auto hidden sm:flex flex-row items-center justify-center'>

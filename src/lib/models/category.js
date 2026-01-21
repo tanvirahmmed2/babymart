@@ -2,6 +2,8 @@ import mongoose from 'mongoose'
 
 const newSchema= new mongoose.Schema({
     title:{type:String, required:true, unique:true, trim: true},
+    image:{type:String, required:true,trim: true},
+    imageId:{type:String, required:true,trim: true},
     createdAt:{type:Date, default:Date.now}
 })
 
