@@ -7,7 +7,7 @@ const ManageNavbar = () => {
     const [menu, setMenu] = useState(false)
     return (
         <div className='w-full relative'>
-            <nav className='fixed px-4 top-0 left-0 right-0 mx-auto w-full max-w-300 bg-emerald-400 flex flex-row items-center justify-between text-white h-14 z-50'>
+            <nav className='fixed px-4 top-0 left-0 right-0 mx-auto w-full max-w-300 bg-pink-400 flex flex-row items-center justify-between text-white h-14 z-50'>
                 <Link className='text-2xl font-semibold' href={'/manage'}>Management</Link>
                 <div className='w-auto hidden sm:flex flex-row items-center justify-center gap-2'>
                     <Link href={'/manage/orders'}>Orders</Link>

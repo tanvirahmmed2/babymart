@@ -25,7 +25,7 @@ const UpdateProductForm = ({ product }) => {
     const updateData = async (e) => {
         e.preventDefault()
         try {
-            const response= await axios.post('/api/product/update', formData, {withCredentials: true})
+            const response= await axios.post('/api/product/update', formData, {withCpinkentials: true})
             toast.success(response.data.message)
         } catch (error) {
             console.log(error)
@@ -35,7 +35,7 @@ const UpdateProductForm = ({ product }) => {
 
     const changeStatus=async () => {
         try {
-            const response= await axios.post('/api/product/status', {id:formData.id}, {withCredentials:true})
+            const response= await axios.post('/api/product/status', {id:formData.id}, {withCpinkentials:true})
             toast(response.data.message)
             
         } catch (error) {
@@ -52,34 +52,34 @@ const UpdateProductForm = ({ product }) => {
             <form onSubmit={updateData} className='w-full flex flex-col items-center gap-2'>
                 <div className='w-full flex flex-col'>
                     <label htmlFor="">Title</label>
-                    <input type="text" name='title' id='title' required value={formData.title} onChange={handleChange} className='w-full p-1 px-3 rounded-lg border-2 border-black/10 outline-none' />
+                    <input type="text" name='title' id='title' requipink value={formData.title} onChange={handleChange} className='w-full p-1 px-3 rounded-lg border-2 border-pink-400/10 outline-none' />
                 </div>
                 <div className='w-full flex flex-col'>
                     <label htmlFor="description">Description</label>
-                    <textarea name="description" id="description" value={formData.description} required onChange={handleChange} className='w-full p-1 px-3 rounded-lg border-2 border-black/10 outline-none' />
+                    <textarea name="description" id="description" value={formData.description} requipink onChange={handleChange} className='w-full p-1 px-3 rounded-lg border-2 border-pink-400/10 outline-none' />
                 </div>
                 <div className='w-full flex flex-col'>
                     <label htmlFor="wholeSalePrice">Whole Sale Price</label>
-                    <input type="number" min={0} required name='wholeSalePrice' id='wholeSalePrice' value={formData.wholeSalePrice} onChange={handleChange} className='w-full p-1 px-3 rounded-lg border-2 border-black/10 outline-none' />
+                    <input type="number" min={0} requipink name='wholeSalePrice' id='wholeSalePrice' value={formData.wholeSalePrice} onChange={handleChange} className='w-full p-1 px-3 rounded-lg border-2 border-pink-400/10 outline-none' />
                 </div>
                 <div className='w-full flex flex-col'>
                     <label htmlFor="price">Price</label>
-                    <input type="number" min={0} required name='price' id='price' value={formData.price} onChange={handleChange} className='w-full p-1 px-3 rounded-lg border-2 border-black/10 outline-none' />
+                    <input type="number" min={0} requipink name='price' id='price' value={formData.price} onChange={handleChange} className='w-full p-1 px-3 rounded-lg border-2 border-pink-400/10 outline-none' />
                 </div>
                 <div className='w-full flex flex-col'>
                     <label htmlFor="quantity">Quantity</label>
-                    <input type="number" min={0} required name='quantity' id='quantity' value={formData.quantity} onChange={handleChange} className='w-full p-1 px-3 rounded-lg border-2 border-black/10 outline-none' />
+                    <input type="number" min={0} requipink name='quantity' id='quantity' value={formData.quantity} onChange={handleChange} className='w-full p-1 px-3 rounded-lg border-2 border-pink-400/10 outline-none' />
                 </div>
                 <div className='w-full flex flex-col'>
                     <label htmlFor="discount">Discount</label>
-                    <input type="number" name='discount' id='discount' value={formData.discount} onChange={handleChange}  className='w-full p-1 px-3 rounded-lg border-2 border-black/10 outline-none'/>
+                    <input type="number" name='discount' id='discount' value={formData.discount} onChange={handleChange}  className='w-full p-1 px-3 rounded-lg border-2 border-pink-400/10 outline-none'/>
                 </div >
-                <button type='submit' className='bg-black/50 hover:bg-black/70 cursor-pointer rounded-lg w-full text-center p-1 text-white'>Submit</button>
+                <button type='submit' className='bg-pink-400/50 hover:bg-pink-400/70 cursor-pointer rounded-lg w-full text-center p-1 text-white'>Submit</button>
             </form>
             <div className='w-full flex flex-row gap-6 items-center justify-center'>
                 <div className=' flex flex-row items-center gap-4'>
                     <p>Status</p>
-                    <p>{product.isAvailable ? <span className='text-white p-1 px-3 rounded-lg bg-green-500'>Available</span> : <span className='text-white p-1 px-3 rounded-lg bg-red-500'>Unavailable</span>}</p>
+                    <p>{product.isAvailable ? <span className='text-white p-1 px-3 rounded-lg bg-green-500'>Available</span> : <span className='text-white p-1 px-3 rounded-lg bg-pink-500'>Unavailable</span>}</p>
                 </div>
                 <button onClick={changeStatus} className='text-xl cursor-pointer flex flex-row items-center gap-2'>Change {product.isAvailable ?<CgUnavailable/>:  <MdOutlineEventAvailable/>  }</button>
             </div>

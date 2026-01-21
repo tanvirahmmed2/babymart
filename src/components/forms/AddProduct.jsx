@@ -148,7 +148,7 @@ const AddProduct = () => {
                     <label htmlFor="image">Image</label>
                     <input type="file" accept='image/*' required name='image' onChange={handleChange} id='image' className='w-full p-1 px-3 outline-none border-2 border-black/10 rounded-lg shadow-sm' />
                 </div>
-                <button type='submit' className='bg-emerald-400 text-white p-1 px-4 rounded-lg shadow-sm cursor-pointer'>Submit</button>
+                <button type='submit' className='bg-pink-400 text-white p-1 px-4 rounded-lg shadow-sm cursor-pointer'>Submit</button>
 
             </form>
 
@@ -164,7 +164,7 @@ const AddProduct = () => {
                     <input type="file" accept='image/**' required onChange={handleChangeCategory} id='image' name='image'  className='w-full p-1 px-3 outline-none border-2 border-black/10 rounded-lg shadow-sm' />
 
                 </div>
-                <button type='submit' className='px-4 p-1 bg-emerald-400 text-center rounded-lg hover:scale-[1.02] transform ease-in-out duration-500 cursor-pointer text-white'>Submit</button>
+                <button type='submit' className='px-4 p-1 bg-pink-400 text-center rounded-lg hover:scale-[1.02] transform ease-in-out duration-500 cursor-pointer text-white'>Submit</button>
             </form>
 
         </div>

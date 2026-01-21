@@ -80,8 +80,8 @@ const Orderform = ({ cartItems }) => {
            
             <div className='w-full flex flex-col items-center justify-center gap-2'>
                 <div className="flex flex-row items-center justify-between w-full">
-                    <p onClick={() => handleMethodChange('pickup')} className={`cursor-pointer px-4 py-1 rounded-full border ${data.delivery === 'pickup' ? 'bg-emerald-400 text-white' : 'border-gray-300'}`} >Pickup</p>
-                    <p onClick={() => handleMethodChange('homedelivery')} className={`cursor-pointer px-4 py-1 rounded-full border ${data.delivery === 'homedelivery' ? 'bg-emerald-400 text-white' : 'border-gray-300'}`} >Homde Delivery</p>
+                    <p onClick={() => handleMethodChange('pickup')} className={`cursor-pointer px-4 py-1 rounded-full border ${data.delivery === 'pickup' ? 'bg-pink-400 text-white' : 'border-gray-300'}`} >Pickup</p>
+                    <p onClick={() => handleMethodChange('homedelivery')} className={`cursor-pointer px-4 py-1 rounded-full border ${data.delivery === 'homedelivery' ? 'bg-pink-400 text-white' : 'border-gray-300'}`} >Homde Delivery</p>
                 </div>
                 <div className='w-full flex flex-row items-center justify-between'>
                     <label htmlFor="name">Name</label>
@@ -144,7 +144,7 @@ const Orderform = ({ cartItems }) => {
                 </div>
             </div>
 
-            <button className='bg-emerald-400 text-white p-1 px-4 rounded-2xl cursor-pointer' type='submit'>Place order</button>
+            <button className='bg-pink-400 text-white p-1 px-4 rounded-2xl cursor-pointer' type='submit'>Place order</button>
         </form>
     )
 }
