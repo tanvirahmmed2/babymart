@@ -25,7 +25,7 @@ const Intro = () => {
                 <div>
                     {
                         categories.length > 0 && categories.map((cat)=>(
-                            <Link key={cat} href={`/products/categroy/${cat?.title}`}>{cat?.title}</Link>
+                            <Link key={cat} href={`/products/category/${cat?.title}`}>{cat?.title}</Link>
                         ))
                     }
                 </div>
