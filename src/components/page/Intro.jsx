@@ -1,12 +1,13 @@
 'use client'
 import Image from 'next/image'
 import React, { useContext } from 'react'
+import { motion } from 'framer-motion'
 import { Context } from '../helper/Context'
 import Link from 'next/link'
 
 const Intro = () => {
     const {categories}= useContext(Context)
-    console.log(categories)
+    
     return (
         <div className=' w-full flex flex-col gap-8'>
 
@@ -14,7 +15,7 @@ const Intro = () => {
                 <Image src={`https://images.pexels.com/photos/29234756/pexels-photo-29234756.jpeg`} className='w-full max-h-100 object-cover' alt='home image' width={1000} height={1000} />
                 <div className="absolute inset-0 sm:gap-4 flex flex-col items-center justify-center text-white bg-black/10">
                     <p className='font-semibold font-serif '>Welcome to</p>
-                    <h1 className='text-5xl sm:text-7xl font-extrabold'>Baby Mart</h1>
+                    <h1 className='text-5xl sm:text-7xl font-extrabold text-pink-400'>Baby Mart</h1>
                     <p className='font-semibold font-serif '>Collect surprises for you happiness</p>
                 </div>
             </div>
@@ -24,10 +25,10 @@ const Intro = () => {
                 <div className='w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 justify-items-center gap-4'>
                     {
                         categories.length > 0 && categories.map((cat)=>(
-                            <Link key={cat.title} href={`/products/category/${cat?.title}`} className='w-full relative'>
+                            <motion.div initial={{opacity:0}} whileInView={{opacity:1}} transition={{duration:0.6}} key={cat.title}  className='w-full relative shadow-xs overflow-hidden shadow-pink-400 rounded-lg flex flex-col items-center justify-center'>
                                 <Image src={`${cat?.image}`} width={1000} height={1000} alt='image' className='w-full h-70 object-cover rounded-sm'/>
-                                <p className='px-5 border-b'>{cat?.title}</p>
-                            </Link>
+                                <Link href={`/products/category/${cat?.title}`} className='w-full'>{cat?.title}</Link>
+                            </motion.div>
                         ))
                     }
                 </div>

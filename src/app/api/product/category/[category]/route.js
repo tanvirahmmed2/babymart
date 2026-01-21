@@ -17,7 +17,7 @@ export async function GET(req, { params }) {
 
         const products = await Product.find({ category }).sort({createAt:-1})
 
-        if (!products) {
+        if (!products || products.length ===0) {
             return NextResponse.json({
                 success: false,
                 message: 'No product found with this category'

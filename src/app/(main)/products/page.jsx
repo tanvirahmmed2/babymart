@@ -3,14 +3,13 @@
 import Item from "@/components/card/Item"
 import { Context } from "@/components/helper/Context"
 import axios from "axios"
-import Link from "next/link"
 import { useEffect, useState, useContext } from "react"
 
 
 
 
 const Products = () => {
-  const {categories}= useContext(Context)
+  const { categories } = useContext(Context)
   const [products, setProducts] = useState([])
   const [filterData, setFilterData] = useState({
     category: '',
@@ -36,26 +35,26 @@ const Products = () => {
     fetchData()
   }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     const fetchProducts = async () => {
-        try {
-            const response = await axios.get('/api/product/filter', {
-                params: { 
-                    category: filterData.category, 
-                    availability: filterData.availability 
-                }
-            });
-            setProducts(response.data.payload);
-        } catch (error) {
-            console.log(error)
-            setProducts([])
-        }
+      try {
+        const response = await axios.get('/api/product/filter', {
+          params: {
+            category: filterData.category,
+            availability: filterData.availability
+          }
+        });
+        setProducts(response.data.payload);
+      } catch (error) {
+        console.log(error)
+        setProducts([])
+      }
     };
 
     fetchProducts();
-  },[filterData])
+  }, [filterData])
 
-  console.log(products)
+
 
   return (
     <div className="w-full p-4 min-h-screen">
@@ -81,12 +80,10 @@ const Products = () => {
 
         </div>
         {
-          products.length < 1 ? <p>No product found</p> : <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          products.length < 1 ? <p>No product found</p> : <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {
               products.map(product => (
-                <Link href={`/products/${product?.slug}`} key={product._id}>
-                  <Item item={product} />
-                </Link>
+                <Item item={product} key={product._id} />
               ))
             }
           </div>
