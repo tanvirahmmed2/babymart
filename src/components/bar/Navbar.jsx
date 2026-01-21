@@ -1,9 +1,31 @@
+import Link from 'next/link'
 import React from 'react'
+
+import { AiOutlineProduct } from "react-icons/ai";
+import { BiSolidOffer } from "react-icons/bi";
+import { IoLogInSharp } from "react-icons/io5";
+import { IoHomeOutline } from "react-icons/io5";
 
 const Navbar = () => {
   return (
-    <div>
-      
+    <div className='w-full relative'>
+      <nav className='fixed px-4 bottom-0 sm:top-0 sm:bottom-auto left-0 right-0 mx-auto w-full max-w-300 bg-emerald-400 flex flex-row items-center justify-between text-white h-14 z-50'>
+        <Link href={'/'} className='text-2xl font-semibold italic hidden sm:block'>BabyMart</Link>
+
+        <div className='w-full flex flex-row items-center justify-around text-3xl sm:hidden'>
+          <Link href={'/'}><IoHomeOutline /></Link>
+          <Link href={'/'}><BiSolidOffer /></Link>
+          <Link href={'/'}><AiOutlineProduct /></Link>
+          <Link href={'/'}><IoLogInSharp /></Link>
+        </div>
+
+        <div className='w-auto hidden sm:flex flex-row items-center justify-center'>
+          <Link className='px-2 h-14 w-auto flex items-center justify-center hover:bg-white/20' href={'/offers'}>Offers</Link>
+          <Link className='px-2 h-14 w-auto flex items-center justify-center hover:bg-white/20' href={'/products'}>Products</Link>
+          <Link className='px-2 h-14 w-auto flex items-center justify-center hover:bg-white/20' href={'/login'}>Login</Link>
+        </div>
+      </nav>
+
     </div>
   )
 }
