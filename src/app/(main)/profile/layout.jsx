@@ -14,7 +14,7 @@ const ProfileLayout = async({children}) => {
         return redirect('/login')
     }
   return (
-    <div>
+    <div className='w-full'>
       {children}
     </div>
   )

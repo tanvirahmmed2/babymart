@@ -1,4 +1,4 @@
-import { isLogin } from '@/lib/middleware';
+import { isLogin, isManager } from '@/lib/middleware';
 import Link from 'next/link'
 import React from 'react'
 
@@ -11,6 +11,7 @@ import { CiShoppingCart } from "react-icons/ci";
 
 const Navbar = async () => {
   const auth = await isLogin()
+  const manage= await isManager()
 
   return (
     <div className='w-full relative'>
@@ -32,6 +33,9 @@ const Navbar = async () => {
           <Link className='px-2 h-14 w-auto flex items-center justify-center hover:bg-white/20' href={'/offers'}>Offers</Link>
           <Link className='px-2 h-14 w-auto flex items-center justify-center hover:bg-white/20' href={'/products'}>Products</Link>
           <Link className='px-2 h-14 w-auto flex items-center justify-center hover:bg-white/20' href={'/cart'}>Cart</Link>
+          {
+            manage.success && <Link className='px-2 h-14 w-auto flex items-center justify-center hover:bg-white/20' href={'/manage'}>Manage</Link>
+          }
           {
             auth.success ? <Link className='px-2 h-14 w-auto flex items-center justify-center hover:bg-white/20' href={'profile'}>Profile</Link> : <Link className='px-2 h-14 w-auto flex items-center justify-center hover:bg-white/20' href={'/login'}>Login</Link>
           }
