@@ -8,15 +8,138 @@ export const Context = createContext()
 const ContextProvider = ({ children }) => {
 
 
-  
 
 
-  const [cartItems, setCartItems] = useState([])
- 
+
+  const [cartSalesItems, setCartSalesItems] = useState([])
+
+  const [cart, setCart] = useState({ items: [] })
   const [userData, setUserData] = useState(null)
-  const [categories, setCategories]= useState([])
+  const [categories, setCategories] = useState([])
 
-  const fetchCart = async () => {
+
+  useEffect(() => {
+
+  }, [])
+
+  const fetchCart = () => {
+    if (typeof window === 'undefined') return
+
+    try {
+      const storedCart = localStorage.getItem('cart')
+
+      if (storedCart) {
+        const parsed = JSON.parse(storedCart)
+
+        if (parsed?.items && Array.isArray(parsed.items)) {
+          setCart(parsed)
+        } else {
+          setCart({ items: [] })
+          localStorage.removeItem('cart')
+        }
+      }
+    } catch (error) {
+      console.error('Invalid cart data, clearing...', error)
+      localStorage.removeItem('cart')
+      setCart({ items: [] })
+    }
+    
+  }
+
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('cart', JSON.stringify(cart))
+    }
+  }, [cart])
+
+
+
+  const addToCart = (product) => {
+    setCart((prev) => {
+      const existing = prev.items.find(
+        item => item.productId === product?._id
+      )
+
+      if (existing) {
+        return {
+          ...prev,
+          items: prev.items.map(item =>
+            item.productId === product?._id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          )
+        }
+      }
+
+      return {
+        ...prev,
+        items: [
+          ...prev.items,
+          {
+            productId: product?._id,
+            name: product?.title,
+            quantity: 1,
+            price: product?.price - product?.discount
+          }
+        ]
+      }
+    })
+  }
+
+  const removeFromCart = (id) => {
+    setCart(prev => ({
+      ...prev,
+      items: prev.items.filter(item => item.productId !== id)
+    }))
+  }
+
+
+  const decreaseQuantity = (id) => {
+    setCart((prev) => {
+      const existing = prev.items.find(
+        item => item.productId === id
+      )
+
+      if (!existing) return prev
+
+      if (existing.quantity > 1) {
+        return {
+          ...prev,
+          items: prev.items.map(item =>
+            item.productId === id
+              ? { ...item, quantity: item.quantity - 1 }
+              : item
+          )
+        }
+      }
+
+
+      return {
+        ...prev,
+        items: prev.items.filter(item => item.productId !== id)
+      }
+    })
+  }
+
+
+
+  const clearCart = () => {
+    setCart({ items: [] })
+    localStorage.removeItem('cart')
+  }
+
+
+
+
+
+
+
+
+
+
+
+  const fetchSalesCart = async () => {
     try {
       const res = await axios.get('/api/user/cart', { withCredentials: true })
       const plainCart = res.data.payload.map(item => ({
@@ -26,9 +149,10 @@ const ContextProvider = ({ children }) => {
         quantity: item.quantity,
         price: item.price
       }))
-      setCartItems(plainCart)
+      setCartSalesItems(plainCart)
     } catch (err) {
       console.log(err)
+      setCartSalesItems([])
     }
   }
 
@@ -48,33 +172,32 @@ const ContextProvider = ({ children }) => {
   }, [])
 
 
-  
-  const fetchCategory= async () => {
+
+  const fetchCategory = async () => {
     try {
-      const response= await axios.get('/api/category', {withCredentials:true})
+      const response = await axios.get('/api/category', { withCredentials: true })
       setCategories(response.data.payload)
     } catch (error) {
       console.log(error)
       setCategories([])
-      
+
     }
-    
+
   }
-    
+
 
 
   useEffect(() => {
-     fetchCart()
+    fetchCategory()
+    fetchCart()
+  }, [])
 
-     fetchCategory()
-   }, [])
-
-    const contextValue = {
-        categories, fetchCategory, cartItems, userData
-    }
-    return <Context.Provider value={contextValue}>
-        {children}
-    </Context.Provider>
+  const contextValue = {
+    categories, fetchCategory, cartSalesItems, userData, cart, fetchCart, addToCart, clearCart, removeFromCart, decreaseQuantity, fetchCart, fetchSalesCart
+  }
+  return <Context.Provider value={contextValue}>
+    {children}
+  </Context.Provider>
 }
 
 

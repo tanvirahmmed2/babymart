@@ -21,7 +21,7 @@ const CategoryProducts = async ({ params }) => {
           <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {
               products.map(product => (
-                <Item item={product} key={product._id} />
+                <Item product={product} key={product._id} />
               ))
             }
           </div>

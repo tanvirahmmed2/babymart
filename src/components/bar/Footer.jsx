@@ -11,6 +11,7 @@ const Footer = () => {
             <Link href={'/offers'}>Offers</Link>
             <Link href={'/products'}>Products</Link>
             <Link href={'/register'}>Register</Link>
+            <Link href={'/products/category'}>Categories</Link>
           </div>
         </div>
         <div className='w-auto min-w-50 flex flex-col gap-1'>

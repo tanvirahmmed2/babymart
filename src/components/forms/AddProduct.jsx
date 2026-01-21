@@ -101,7 +101,7 @@ const AddProduct = () => {
 
 
     return (
-        <div className='w-full flex flex-col gap-8 mt-8 px-4 py-8'>
+        <div className='w-full flex flex-col gap-8 px-4'>
             <form onSubmit={addNewProduct} className='w-full flex flex-col items-center justify-center gap-4 border-b-2 border-black/10 py-4'>
                 <h1 className='text-xl font-semibold'>Add New Product</h1>
                 <div className='w-full flex flex-col gap-2'>

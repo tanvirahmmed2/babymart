@@ -31,6 +31,7 @@ const Navbar = async () => {
         <div className='w-auto hidden sm:flex flex-row items-center justify-center'>
           <Link className='px-2 h-14 w-auto flex items-center justify-center hover:bg-white/20' href={'/offers'}>Offers</Link>
           <Link className='px-2 h-14 w-auto flex items-center justify-center hover:bg-white/20' href={'/products'}>Products</Link>
+          <Link className='px-2 h-14 w-auto flex items-center justify-center hover:bg-white/20' href={'/cart'}>Cart</Link>
           {
             auth.success ? <Link className='px-2 h-14 w-auto flex items-center justify-center hover:bg-white/20' href={'profile'}>Profile</Link> : <Link className='px-2 h-14 w-auto flex items-center justify-center hover:bg-white/20' href={'/login'}>Login</Link>
           }

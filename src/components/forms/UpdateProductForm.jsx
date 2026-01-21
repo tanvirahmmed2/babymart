@@ -52,23 +52,23 @@ const UpdateProductForm = ({ product }) => {
             <form onSubmit={updateData} className='w-full flex flex-col items-center gap-2'>
                 <div className='w-full flex flex-col'>
                     <label htmlFor="">Title</label>
-                    <input type="text" name='title' id='title' requipink value={formData.title} onChange={handleChange} className='w-full p-1 px-3 rounded-lg border-2 border-pink-400/10 outline-none' />
+                    <input type="text" name='title' id='title' required value={formData.title} onChange={handleChange} className='w-full p-1 px-3 rounded-lg border-2 border-pink-400/10 outline-none' />
                 </div>
                 <div className='w-full flex flex-col'>
                     <label htmlFor="description">Description</label>
-                    <textarea name="description" id="description" value={formData.description} requipink onChange={handleChange} className='w-full p-1 px-3 rounded-lg border-2 border-pink-400/10 outline-none' />
+                    <textarea name="description" id="description" value={formData.description} required onChange={handleChange} className='w-full p-1 px-3 rounded-lg border-2 border-pink-400/10 outline-none' />
                 </div>
                 <div className='w-full flex flex-col'>
                     <label htmlFor="wholeSalePrice">Whole Sale Price</label>
-                    <input type="number" min={0} requipink name='wholeSalePrice' id='wholeSalePrice' value={formData.wholeSalePrice} onChange={handleChange} className='w-full p-1 px-3 rounded-lg border-2 border-pink-400/10 outline-none' />
+                    <input type="number" min={0} required name='wholeSalePrice' id='wholeSalePrice' value={formData.wholeSalePrice} onChange={handleChange} className='w-full p-1 px-3 rounded-lg border-2 border-pink-400/10 outline-none' />
                 </div>
                 <div className='w-full flex flex-col'>
                     <label htmlFor="price">Price</label>
-                    <input type="number" min={0} requipink name='price' id='price' value={formData.price} onChange={handleChange} className='w-full p-1 px-3 rounded-lg border-2 border-pink-400/10 outline-none' />
+                    <input type="number" min={0} required name='price' id='price' value={formData.price} onChange={handleChange} className='w-full p-1 px-3 rounded-lg border-2 border-pink-400/10 outline-none' />
                 </div>
                 <div className='w-full flex flex-col'>
                     <label htmlFor="quantity">Quantity</label>
-                    <input type="number" min={0} requipink name='quantity' id='quantity' value={formData.quantity} onChange={handleChange} className='w-full p-1 px-3 rounded-lg border-2 border-pink-400/10 outline-none' />
+                    <input type="number" min={0} required name='quantity' id='quantity' value={formData.quantity} onChange={handleChange} className='w-full p-1 px-3 rounded-lg border-2 border-pink-400/10 outline-none' />
                 </div>
                 <div className='w-full flex flex-col'>
                     <label htmlFor="discount">Discount</label>
