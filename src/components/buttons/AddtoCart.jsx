@@ -1,10 +1,12 @@
 'use client'
-import React from 'react'
+import React, { useContext } from 'react'
 import { CiShoppingCart } from "react-icons/ci";
+import { Context } from '../helper/Context';
 
-const AddtoCart = () => {
+const AddtoCart = ({product}) => {
+  const {addToCart}= useContext(Context)
   return (
-    <button className='w-full p-1 bg-pink-300 flex flex-row items-center justify-center gap-4 text-white cursor-pointer hover:bg-pink-400 '>Cart <CiShoppingCart className='text-xl'/></button>
+    <button onClick={()=> addToCart(product)} className='w-full p-1 bg-pink-300 flex flex-row items-center justify-center gap-4 text-white cursor-pointer group-hover:bg-pink-400 '>Cart <CiShoppingCart className='text-xl' /></button>
   )
 }
 
